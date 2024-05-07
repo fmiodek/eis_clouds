@@ -45,6 +45,7 @@ def update_game(received: str):
         current_balloon.count_streak(hit_flag, STREAK_THRESHOLD)
         if current_balloon.is_streak:
             current_balloon.play_sound("streak", channel_id=current_balloon_id, volume=1.0)
+            current_balloon.is_streak = False
         else:
             if hit_flag:
                 current_balloon.play_sound("hit", channel_id=current_balloon_id, volume=1.0)
