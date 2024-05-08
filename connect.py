@@ -19,7 +19,7 @@ while True:
         # ready-message for the server
         ready = bytes([1])  # 10000000 -> reversed 
         client_sock.sendall(ready)
-        print("sent:", ready)
+        print("sent:", bin(int.from_bytes(ready, byteorder='big'))[2:].zfill(8))
 
         # receive data
         while True:
@@ -29,28 +29,28 @@ while True:
                 received1 = ''.join(format(incoming_data[0], '08b'))
                 received2= ''.join(format(incoming_data[1], '08b'))
                 received = received1 + received2
-                print("received:", received1, received2)
+                received = received[::-1]
+                print("received:", received)
                 
                 # handle received data, send response, or trigger actions
-                #if received != temp:
                 game_logic.update_game(received)
-                #temp = received
             else: 
                 break
 
     except Exception as e:
         print("Error:", e)
-        socket.close()
-        time.sleep(1)
         "try reconnecting (from error)"
+        client_sock.close()
+        time.sleep(1)
 
     except KeyboardInterrupt:
-        socket.close()
+        client_sock.close()
         break
         
     finally:
-        socket.close()
-        time.sleep(1)
         "try reconnecting (from finally)"
+        client_sock.close()
+        time.sleep(1)
+        
 
 

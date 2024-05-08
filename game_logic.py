@@ -5,8 +5,8 @@ receiving bits overview
 
 bit 0: start_flag
 bit 1: end_flag
-bit 2: hit(1)
-bit 3: miss(1)
+bit 2: hit_flag
+bit 3: miss_flag
 bit 4: balloon 1
 bit 5: balloon 2
 bit 6: balloon 3
@@ -29,18 +29,25 @@ balloons = [balloon.Balloon(id) for id in range(12)]
 
 # take the received bits and update the game-state accordingly
 def update_game(received: str):
-    # read bits
+    # filter out non-logical receives:
+    if received[4:16] == "0"*12 and received[0:2] == "00":
+        return
+
+    # read first 4 bits
     start_flag = int(received[0])
     end_flag = int(received[1])
     hit_flag = int(received[2])
-    current_balloon_id = int(received[3:15].index("1"))
-    current_balloon = balloons[current_balloon_id]
+    miss_flag = int(received[3])    
 
     # update game based on received bits
     if start_flag:
         for balloon in balloons:
             balloon.reset_balloon()
+    elif end_flag:
+        pass
     else:
+        current_balloon_id = int(received[4:16].index("1")) 
+        current_balloon = balloons[current_balloon_id]
         current_balloon.extend_sequence(hit_flag)
         current_balloon.count_streak(hit_flag, STREAK_THRESHOLD)
         if current_balloon.is_streak:
