@@ -5,8 +5,8 @@ receiving bits overview
 
 bit 0: start_flag
 bit 1: end_flag
-bit 2: hit_flag
-bit 3: miss_flag
+bit 2: hit_flag (1 if hit)
+bit 3: miss_flag (1 if missed)
 bit 4: balloon 1
 bit 5: balloon 2
 bit 6: balloon 3
