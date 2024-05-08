@@ -5,24 +5,24 @@ receiving bits overview
 
 bit 0: start_flag
 bit 1: end_flag
-bit 2: hit(1)/miss(0)
-bit 3: balloon 1
-bit 4: balloon 2
-bit 5: balloon 3
-bit 6: balloon 4
-bit 7: balloon 5
-bit 8: balloon 6
-bit 9: balloon 7
-bit 10: balloon 8
-bit 11: balloon 9
-bit 12: balloon 10
-bit 13: balloon 11
-bit 14: balloon 12
-bit 15: (still free)
+bit 2: hit(1)
+bit 3: miss(1)
+bit 4: balloon 1
+bit 5: balloon 2
+bit 6: balloon 3
+bit 7: balloon 4
+bit 8: balloon 5
+bit 9: balloon 6
+bit 10: balloon 7
+bit 11: balloon 8
+bit 12: balloon 9
+bit 13: balloon 10
+bit 14: balloon 11
+bit 15: balloon 12
 """
 
 # amount of consecutive hits until a special sound is played
-STREAK_THRESHOLD = 5
+STREAK_THRESHOLD = 3
 
 # instantiate the 12 balloons
 balloons = [balloon.Balloon(id) for id in range(12)]

@@ -12,30 +12,37 @@ while True:
 
     # connect to server
     try:
+        print("try connecting")
         client_sock.connect((IP, PORT))
         print(f"connected to server on {IP}:{PORT}")
 
         # ready-message for the server
-        ready = bytes([128])  # 10000000
+        ready = bytes([1])  # 10000000 -> reversed 
         client_sock.sendall(ready)
+        print("sent:", ready)
 
         # receive data
         while True:
             incoming_data = client_sock.recv(2)
             if incoming_data:
                 # convert byte to bit-stream
-                print("inc", incoming_data)
                 received1 = ''.join(format(incoming_data[0], '08b'))
                 received2= ''.join(format(incoming_data[1], '08b'))
-                print("rec", received1 + received2)
+                received = received1 + received2
+                print("received:", received1, received2)
                 
                 # handle received data, send response, or trigger actions
-                # game_logic.update_game(received)
+                #if received != temp:
+                game_logic.update_game(received)
+                #temp = received
             else: 
                 break
 
     except Exception as e:
         print("Error:", e)
+        socket.close()
+        time.sleep(1)
+        "try reconnecting (from error)"
 
     except KeyboardInterrupt:
         socket.close()
@@ -44,5 +51,6 @@ while True:
     finally:
         socket.close()
         time.sleep(1)
+        "try reconnecting (from finally)"
 
 
