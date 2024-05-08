@@ -23,6 +23,8 @@ bit 15: balloon 12
 
 # amount of consecutive hits until a special sound is played
 STREAK_THRESHOLD = 3
+# score list for sending data to frontend?
+scores = []
 
 # instantiate the 12 balloons
 balloons = [balloon.Balloon(id) for id in range(12)]
@@ -30,7 +32,8 @@ balloons = [balloon.Balloon(id) for id in range(12)]
 # take the received bits and update the game-state accordingly
 def update_game(received: str):
     # filter out non-logical receives:
-    if received[4:16] == "0"*12 and received[0:2] == "00":
+    if ((received[4:16] == "0"*12 and received[0:2] == "00") or
+        (received[4:16] == "0"*12 and received[2:4] != "00")):
         return
 
     # read first 4 bits
@@ -41,22 +44,34 @@ def update_game(received: str):
 
     # update game based on received bits
     if start_flag:
+        # reset balloons and score-list
         for balloon in balloons:
             balloon.reset_balloon()
+            scores = []
     elif end_flag:
-        pass
+        # save scores in list
+        for balloon in balloons:
+            scores.append(balloon.score)
     else:
+        # read bits for balloon id
         current_balloon_id = int(received[4:16].index("1")) 
         current_balloon = balloons[current_balloon_id]
-        current_balloon.extend_sequence(hit_flag)
-        current_balloon.count_streak(hit_flag, STREAK_THRESHOLD)
+        
+        # check for hit or miss and add to sequence
+        if hit_flag == 1:
+            current_balloon.extend_sequence(1)
+        elif miss_flag == 1:
+            current_balloon.extend_sequence(0)
+
+        current_balloon.count_hits(hit_flag)
+        #current_balloon.count_streak(hit_flag, STREAK_THRESHOLD)
         if current_balloon.is_streak:
             current_balloon.play_sound("streak", channel_id=current_balloon_id, volume=1.0)
             current_balloon.is_streak = False
         else:
-            if hit_flag:
+            if hit_flag == 1:
                 current_balloon.play_sound("hit", channel_id=current_balloon_id, volume=1.0)
-            else:
+            elif miss_flag == 1:
                 current_balloon.play_sound("miss", channel_id=current_balloon_id, volume=1.0)
 
         

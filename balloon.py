@@ -22,6 +22,9 @@ class Balloon:
     def extend_sequence(self, hit_flag: int):
         self.sequence.append(hit_flag)
 
+    def count_hits(self, hit_flag: int):
+        self.score += hit_flag
+
     def count_streak(self, hit_flag: int, streak_threshold: int):
         # increase streak if cloud was hit, otherwise set it to zero
         if hit_flag:
