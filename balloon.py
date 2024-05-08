@@ -25,11 +25,11 @@ class Balloon:
     def count_hits(self, hit_flag: int):
         self.score += hit_flag
 
-    def count_streak(self, hit_flag: int, streak_threshold: int):
+    def count_streak(self, hit_flag, miss_flag: int, streak_threshold: int):
         # increase streak if cloud was hit, otherwise set it to zero
-        if hit_flag:
+        if hit_flag == 1 and miss_flag == 0:
             self.streak += 1
-        else:
+        elif hit_flag == 0 and miss_flag == 1:
             self.streak = 0
         # check for special streak sound
         if self.streak > 0:
