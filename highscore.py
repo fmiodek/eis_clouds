@@ -4,12 +4,12 @@ class Highscore:
     def __init__(self, time_span):
         self.time_span: str = time_span  # day / season / overall
         self.top_five: list[(int, str, int)] = []
-        self.header = ""
+        self.header = "score, date, balloon_id"
 
     def read_table(self):
         file_path = "highscores/" + self.time_span + ".txt"
         with open(file_path, "r") as current_highscore:
-            self.header = current_highscore.readline()
+            current_highscore.readline()
             scores = current_highscore.readlines()
             for score_data in scores:
                 score, date, balloon_id = score_data.strip("\n").split(", ")
