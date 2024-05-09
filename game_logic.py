@@ -73,5 +73,3 @@ def update_game(received: str):
                 current_balloon.play_sound("hit", channel_id=current_balloon_id, volume=1.0)
             elif miss_flag == 1:
                 current_balloon.play_sound("miss", channel_id=current_balloon_id, volume=1.0)
-
-        
