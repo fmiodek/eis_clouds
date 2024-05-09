@@ -37,9 +37,18 @@ class Highscore:
         self.check_new_scores(new_scores)
         self.write_table()
 
+    def reset_table(self):
+        current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
+        self.top_five = []
+        for i in range(5):
+            reset_entry = (0, current_date, 0)
+            self.top_five.append(reset_entry)
+        self.write_table()
 
-test_score = Highscore("day")
-new_scores = [0,0,0,0,0,0,0,0,23,0,0,10]
-test_score.update_table(new_scores)
+
+#test_score = Highscore("day")
+#new_scores = [0,0,0,0,55,0,0,0,23,0,0,10]
+#test_score.update_table(new_scores)
+#test_score.reset_table()
 
 
