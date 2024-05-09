@@ -23,8 +23,8 @@ bit 15: balloon 12
 
 # amount of consecutive hits until a special sound is played
 STREAK_THRESHOLD = 3
-# score list for sending data to frontend?
-scores = []
+# score list for highscore (initialized to zero)
+scores = [0]*12
 
 # instantiate the 12 balloons
 balloons = [balloon.Balloon(id) for id in range(12)]

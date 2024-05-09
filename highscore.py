@@ -4,13 +4,15 @@ class Highscore:
     def __init__(self, time_span):
         self.time_span: str = time_span  # day / season / overall
         self.top_five: list[(int, str, int)] = []
+        self.header = ""
 
     def read_table(self):
         file_path = "highscores/" + self.time_span + ".txt"
         with open(file_path, "r") as current_highscore:
+            self.header = current_highscore.readline()
             scores = current_highscore.readlines()
             for score_data in scores:
-                score, date, balloon_id = score_data.strip("\n").split(",")
+                score, date, balloon_id = score_data.strip("\n").split(", ")
                 self.top_five.append((int(score), date, balloon_id))
 
     def check_new_scores(self, new_scores: list[int]):
@@ -25,16 +27,19 @@ class Highscore:
     def write_table(self):
         file_path = "highscores/" + self.time_span + ".txt"
         with open(file_path, "w") as new_highscore:
+            new_highscore.writelines(self.header)
             for score, date, balloon_id in self.top_five:
-                new_entry = str(score) + "," + date + "," + str(balloon_id) + "\n"
+                new_entry = str(score) + ", " + date + ", " + str(balloon_id) + "\n"
                 new_highscore.write(new_entry)
 
     def update_table(self, new_scores):
-        self.read_table(self.time_span)
+        self.read_table()
         self.check_new_scores(new_scores)
-        self.write_table(self.time_span)
+        self.write_table()
 
 
-
+test_score = Highscore("day")
+new_scores = [0,0,0,0,0,0,0,0,23,0,0,10]
+test_score.update_table(new_scores)
 
 
