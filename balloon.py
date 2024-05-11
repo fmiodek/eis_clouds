@@ -57,6 +57,5 @@ class Balloon:
 
 #test_balloon = Balloon(0)
 #duration = test_balloon.play_sound("streak", channel_id=0, volume=1.0)
-
 # Keep the program running to allow the sound to play
 #pygame.time.wait(int(duration * 1000))  # Wait for the duration of the sound

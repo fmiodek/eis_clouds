@@ -51,9 +51,9 @@ class Highscore:
         self.write_table()
 
 
-test_score = Highscore("day")
-new_scores = [0,0,0,0,0,55,0,0,23,0,0,10]
-test_score.update_table(new_scores)
+#test_score = Highscore("day")
+#new_scores = [0,0,0,0,0,55,0,0,23,0,0,10]
+#test_score.update_table(new_scores)
 
 
 

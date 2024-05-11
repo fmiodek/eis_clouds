@@ -1,4 +1,5 @@
-import balloon
+from balloon import Balloon
+from highscore import Highscore
 
 """
 receiving bits overview
@@ -23,11 +24,17 @@ bit 15: balloon 12
 
 # amount of consecutive hits until a special sound is played
 STREAK_THRESHOLD = 3
+
 # score list for highscore (initialized to zero)
 scores = [0]*12
 
+# highscores
+daily_highscore = Highscore("day")
+season_highscore = Highscore("season")
+overall_highscore = Highscore("overall")
+
 # instantiate the 12 balloons
-balloons = [balloon.Balloon(id) for id in range(12)]
+balloons = [Balloon(id) for id in range(12)]
 
 # take the received bits and update the game-state accordingly
 def update_game(received: str):
@@ -47,11 +54,15 @@ def update_game(received: str):
         # reset balloons and score-list
         for balloon in balloons:
             balloon.reset_balloon()
-            scores = []
+            scores = [0]*12
     elif end_flag:
         # save scores in list
         for balloon in balloons:
-            scores.append(balloon.score)
+            scores[balloon.balloon_id] = balloon.score
+        # update highscores
+        daily_highscore.update_table(scores)
+        season_highscore.update_table(scores)
+        overall_highscore.update_table(scores)
     else:
         # read bits for balloon id
         current_balloon_id = int(received[4:16].index("1")) 
