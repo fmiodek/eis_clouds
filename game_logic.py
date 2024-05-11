@@ -25,9 +25,6 @@ bit 15: balloon 12
 # amount of consecutive hits until a special sound is played
 STREAK_THRESHOLD = 3
 
-# score list for highscore (initialized to zero)
-scores = [0]*12
-
 # highscores
 daily_highscore = Highscore("day")
 season_highscore = Highscore("season")
@@ -54,12 +51,9 @@ def update_game(received: str):
         # reset balloons and score-list
         for balloon in balloons:
             balloon.reset_balloon()
-            scores = [0]*12
     elif end_flag:
-        # save scores in list
-        for balloon in balloons:
-            scores[balloon.balloon_id] = balloon.score
         # update highscores
+        scores = [balloon.score for balloon in balloons]
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)
@@ -74,8 +68,11 @@ def update_game(received: str):
         elif miss_flag == 1:
             current_balloon.extend_sequence(0)
 
+        # count score/streak
         current_balloon.count_hits(hit_flag)
         current_balloon.count_streak(hit_flag, miss_flag, STREAK_THRESHOLD)
+        
+        # play sounds depending on game situation
         if current_balloon.is_streak:
             current_balloon.play_sound("streak", channel_id=current_balloon_id, volume=1.0)
             current_balloon.is_streak = False
