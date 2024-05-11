@@ -42,18 +42,24 @@ class Highscore:
 
     def update_table(self, new_scores):
         self.read_table()
-        #reset daily table if it´s a new day
+        current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
+        # reset daily table if it´s a new day
         if self.time_span == "day":
-            current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
+            # reset if date of first entry is not equal to current date
             if self.top_five[0][1] != current_date:
+                self.reset_table()
+        # reset season table if its a new year
+        elif self.time_span == "season":
+            # reset if year of first entry is not equal to current year
+            if self.top_five[0][1][-2:] != current_date[-2:]:
                 self.reset_table()
         self.check_new_scores(new_scores)
         self.write_table()
 
 
-#test_score = Highscore("day")
-#new_scores = [0,0,0,0,0,55,0,0,23,0,0,10]
-#test_score.update_table(new_scores)
+test_score = Highscore("season")
+new_scores = [0,0,0,0,0,55,0,0,23,0,0,10]
+test_score.update_table(new_scores)
 
 
 
