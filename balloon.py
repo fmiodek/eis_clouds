@@ -15,6 +15,8 @@ class Balloon:
         self.score = 0
         self.streak = 0
         self.is_streak = False
+        self.hit = 0
+        self.miss = 0
 
     # reset ballon for new game
     def reset_balloon(self):
@@ -22,6 +24,8 @@ class Balloon:
         self.score = 0
         self.streak = 0
         self.is_streak = False
+        self.hit = 0
+        self.miss = 0
 
     def extend_sequence(self, hit_flag: int):
         self.sequence.append(hit_flag)
