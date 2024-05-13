@@ -5,7 +5,7 @@ import sounddevice as sd
 sound_hit = "sounds/hit.mp3"
 sound_miss = "sounds/miss.mp3"
 sound_streak = "sounds/streak.mp3"
-num_channels = 8
+num_channels = 16
 sample_rate = 44100
 
 class Balloon:
@@ -79,5 +79,5 @@ class Balloon:
         
 
 test_balloon = Balloon(0)
-test_balloon.play_sound("streak", channel_id=4)
+test_balloon.play_sound("streak", channel_id=0)
 
