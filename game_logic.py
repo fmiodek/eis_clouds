@@ -49,7 +49,7 @@ def update_game(received: str):
     # read first 2 bits
     start_flag = int(received[0])
     end_flag = int(received[1])
-    hit_miss_data = received[2:AMOUNT_OF_BALLOONS*2]
+    hit_miss_data = received[2:2+(AMOUNT_OF_BALLOONS*2)]
    
     # update game based on received bits
     if start_flag:
@@ -78,6 +78,14 @@ def update_game(received: str):
                 current_balloon.hit = 1
                 current_balloon.extend_sequence(1)
                 current_balloon.count_hits(hit)
+                current_balloon.check_streak(True, STREAK_THRESHOLD)
+                if current_balloon.full_streak:
+                    # play streak sound
+                    current_balloon.play_sound("streak", channel_id=current_balloon.balloon_id)
+                    current_balloon.full_streak = False
+                else:
+                    # play hit sound
+                    current_balloon.play_sound("hit", channel_id=current_balloon.balloon_id)    
             elif current_balloon.hit == 1 and hit == 0:
                 # back to default
                 current_balloon.hit = 0
@@ -92,29 +100,12 @@ def update_game(received: str):
                 # cloud was missed
                 current_balloon.miss = 1
                 current_balloon.extend_sequence(0)
+                current_balloon.check_streak(False, STREAK_THRESHOLD)
+                # play miss sound
+                current_balloon.play_sound("miss", channel_id=current_balloon.balloon_id)
             elif current_balloon.miss == 1 and miss == 0:
                 # return to default
                 current_balloon.miss = 0
             elif current_balloon.miss == 1 and miss == 1:
                 # sent twice -> just ignore
                 pass
-
-        
-        
-        """
-        TODO: check for streak direkt bei edge trigger
-        current_balloon.count_streak(STREAK_THRESHOLD)
-
-        TODO: überarbeiten!! funktioniert so nicht mehr
-        Sound muss direkt bei edge trigger abgespielt werden
-        
-        # play sounds depending on game situation
-        if current_balloon.is_streak:
-            current_balloon.play_sound("streak", channel_id=current_balloon.id, volume=1.0)
-            current_balloon.is_streak = False
-        else:
-            if hit_flag == 1:
-                current_balloon.play_sound("hit", channel_id=current_balloon_id, volume=1.0)
-            elif miss_flag == 1:
-                current_balloon.play_sound("miss", channel_id=current_balloon_id, volume=1.0)
-        """

@@ -17,19 +17,21 @@ while True:
         print(f"connected to server on {IP}:{PORT}")
 
         # ready-message for the server
-        ready = bytes([1])  # 10000000 -> reversed 
+        ready = bytes([128]) # 10000000 -> "Ready" in communication protocol
         client_sock.sendall(ready)
-        print("sent:", bin(int.from_bytes(ready, byteorder='big'))[2:].zfill(8))
+        print("sent:", bin(int.from_bytes(ready, byteorder='little'))[2:].zfill(8))
 
         # receive data
         while True:
-            incoming_data = client_sock.recv(2)
+            incoming_data = client_sock.recv(4)
             if incoming_data:
                 # convert byte to bit-stream
                 received1 = ''.join(format(incoming_data[0], '08b'))
                 received2= ''.join(format(incoming_data[1], '08b'))
-                received = received1 + received2
-                received = received[::-1]
+                received3= ''.join(format(incoming_data[2], '08b'))
+                received4= ''.join(format(incoming_data[3], '08b'))
+                # reverse bytes and concat afterwards
+                received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
                 print("received:", received)
                 
                 # handle received data, send response, or trigger actions

@@ -14,7 +14,7 @@ class Balloon:
         self.sequence = []
         self.score = 0
         self.streak = 0
-        self.is_streak = False
+        self.full_streak = False
         self.hit = 0
         self.miss = 0
 
@@ -23,7 +23,7 @@ class Balloon:
         self.sequence = []
         self.score = 0
         self.streak = 0
-        self.is_streak = False
+        self.full_streak = False
         self.hit = 0
         self.miss = 0
 
@@ -33,16 +33,16 @@ class Balloon:
     def count_hits(self, hit_flag: int):
         self.score += hit_flag
 
-    def count_streak(self, hit_flag, miss_flag: int, streak_threshold: int):
+    def check_streak(self, ongoing, streak_threshold: int):
         # increase streak if cloud was hit, otherwise set it to zero
-        if hit_flag == 1 and miss_flag == 0:
+        if ongoing == True:
             self.streak += 1
-        elif hit_flag == 0 and miss_flag == 1:
+        else:
             self.streak = 0
         # check for special streak sound
         if self.streak > 0:
             if self.streak % streak_threshold == 0:
-                self.is_streak = True
+                self.full_streak = True
 
     # play the correct sound for each game situation
     def play_sound(self, sound_name: str, channel_id: int):
