@@ -70,21 +70,17 @@ socket.onclose = event => {
 
 
 
-/* just for testing */
-/*
-let testElement = document.querySelector("#s5");
+/* just for testing generate a random order by klicking on a list item */
+let testElement = document.querySelector("#s0");
 testElement.addEventListener("click", () => {
+    let randRanks = []
+    for (let i=0; i<12; i++) {
+        randPos = Math.floor(Math.random() * (i + 1));
+        randRanks.splice(randPos, 0, i);
+    }
     scoreList.innerHTML = ""
     for (let i=0; i<12; i++) {
-        if (i !== 3 && i !== 5) {
-            scoreList.appendChild(scoreObjects[i].htmlElement);
-        }
-        if (i === 3) {
-            scoreList.appendChild(scoreObjects[5].htmlElement);
-        }
-        if (i === 5) {
-            scoreList.appendChild(scoreObjects[3].htmlElement);
-        }
-    }
+        randId = randRanks[i]
+        scoreList.appendChild(scoreObjects[randId].htmlElement);
+    }    
 })
-*/
