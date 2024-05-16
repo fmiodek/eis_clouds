@@ -4,7 +4,7 @@ import json
 from game_logic import balloons
 
 HOST = "localhost"
-PORT = 8080
+WEBSOCKET_PORT = 8080
 
 async def send_data(websocket):
     try:
@@ -16,6 +16,8 @@ async def send_data(websocket):
         print("Error in sending data to frontend")
         await websocket.close()
 
-start_server = websockets.serve(send_data, HOST, PORT)
+start_server = websockets.serve(send_data, HOST, WEBSOCKET_PORT)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
+
+

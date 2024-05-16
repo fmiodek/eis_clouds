@@ -13,7 +13,7 @@ class Balloon:
     def __init__(self, balloon_id: int):
         self.balloon_id = balloon_id
         self.sequence = []
-        self.score = balloon_id
+        self.score = 0
         self.streak = 0
         self.full_streak = False
         self.hit = 0
@@ -87,8 +87,8 @@ class Balloon:
         thread.start()
         
 
-test_balloon0 = Balloon(0)
+#test_balloon0 = Balloon(0)
 #test_ballono1 = Balloon(1)
-test_balloon0.play_sound("streak", channel_id=1)
+#test_balloon0.play_sound("streak", channel_id=1)
 #test_ballono1.play_sound("streak", channel_id=9)
 
