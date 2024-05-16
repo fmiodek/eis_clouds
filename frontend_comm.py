@@ -19,5 +19,3 @@ async def send_data(websocket):
 start_server = websockets.serve(send_data, HOST, WEBSOCKET_PORT)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
-
-
