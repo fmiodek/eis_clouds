@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move List Item</title>
+    <style>
+        /* Basic styling for visualization */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            position: relative;
+        }
+        li {
+            background-color: lightgray;
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 1s;
+            position: relative;
+        }
+        li.moving {
+            position: absolute;
+            z-index: 1;
+            transition: transform 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <ul id="itemList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li id="lastItem">Item 3</li>
+    </ul>
+
+    <script>
+        document.getElementById('lastItem').addEventListener('click', function() {
+            const itemList = document.getElementById('itemList');
+            const lastItem = document.getElementById('lastItem');
+            
+            // Add the moving class to animate the item
+            lastItem.classList.add('moving');
+
+            // Calculate the position to move the item to the first position
+            const itemHeight = lastItem.offsetHeight + parseInt(getComputedStyle(lastItem).marginBottom);
+            const moveDistance = -((itemList.children.length - 1) * itemHeight);
+
+            // Apply the transform to create the floating effect
+            lastItem.style.transform = `translateY(${moveDistance}px)`;
+
+            // Wait for the transition to complete
+            lastItem.addEventListener('transitionend', function onTransitionEnd() {
+                // Remove the moving class
+                lastItem.classList.remove('moving');
+                lastItem.style.transform = '';
+
+                // Move the item to the first position
+                itemList.removeChild(lastItem);
+                itemList.insertBefore(lastItem, itemList.firstChild);
+
+                // Remove the event listener to prevent it from triggering multiple times
+                lastItem.removeEventListener('transitionend', onTransitionEnd);
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>

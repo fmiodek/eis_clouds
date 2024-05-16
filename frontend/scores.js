@@ -1,4 +1,4 @@
-let test = document.querySelector("h1");
+let test = document.querySelector("#s3");
 
 test.addEventListener("click", () => {
     alert("test done");
