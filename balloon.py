@@ -1,15 +1,13 @@
 import soundfile as sf
-import librosa
 import numpy as np
 import sounddevice as sd
 import threading
 
-sound_hit = "sounds/hit.wav"
-sound_miss = "sounds/miss.wav"
-sound_streak = "sounds/streak.wav"
+sound_hit = "sounds/hit.mp3"
+sound_miss = "sounds/miss.mp3"
+sound_streak = "sounds/streak.mp3"
 num_channels = 16
-#sample_rate = 44100
-sample_rate = 48000
+sample_rate = 44100
 
 class Balloon:
     def __init__(self, balloon_id: int):
