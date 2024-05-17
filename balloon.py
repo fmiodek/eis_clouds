@@ -1,4 +1,5 @@
 import soundfile as sf
+import librosa
 import numpy as np
 import sounddevice as sd
 import threading
@@ -7,7 +8,8 @@ sound_hit = "sounds/hit.mp3"
 sound_miss = "sounds/miss.mp3"
 sound_streak = "sounds/streak.mp3"
 num_channels = 16
-sample_rate = 44100
+#sample_rate = 44100
+sample_rate = 48000
 
 class Balloon:
     def __init__(self, balloon_id: int):
@@ -60,10 +62,6 @@ class Balloon:
             print("Original audiofile sample rate:", sr)
             print("Original audiofile shape:", audio_data.shape)
 
-            # Convert the audio data to the same sample rate and number of channels as the dummy data
-            if sr != sample_rate:
-                audio_data = sf.resample(audio_data, sample_rate, axis=0)
-
             # If the number of channels is different, repeat to match num_channels
             if audio_data.shape[1] != num_channels:
                 audio_data = np.repeat(audio_data, num_channels/2, axis=1)
@@ -87,8 +85,8 @@ class Balloon:
         thread.start()
         
 
-#test_balloon0 = Balloon(0)
+test_balloon0 = Balloon(0)
 #test_ballono1 = Balloon(1)
-#test_balloon0.play_sound("streak", channel_id=0)
+test_balloon0.play_sound("streak", channel_id=0)
 #test_ballono1.play_sound("streak", channel_id=9)
 
