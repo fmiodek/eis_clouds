@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.startupscript</string>
+    <string>com.balloon.balloon</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/bin/myscript.sh</string>
+        <string>/Users/aufwind/eis_clouds/start_balloons.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
