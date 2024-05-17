@@ -70,7 +70,7 @@ socket.onclose = event => {
 
 
 
-/* just for testing generate a random order by klicking on a list item */
+/* just for testing generate a random order by klicking on a list item
 let testElement = document.querySelector("#s0");
 testElement.addEventListener("click", () => {
     let randRanks = []
@@ -83,4 +83,17 @@ testElement.addEventListener("click", () => {
         randId = randRanks[i]
         scoreList.appendChild(scoreObjects[randId].htmlElement);
     }    
+})
+*/
+
+/* testing single element (S3) */
+let testElement = document.querySelector("#s3");
+testElement.addEventListener("click", () => {
+    scoreList.innerHTML = ""
+    scoreList.appendChild(scoreObjects[3].htmlElement);
+    for (let i=0; i<12; i++) {
+        if (i !== 3) {
+            scoreList.appendChild(scoreObjects[i].htmlElement);
+        }
+    }
 })
