@@ -89,6 +89,6 @@ class Balloon:
 
 #test_balloon0 = Balloon(0)
 #test_ballono1 = Balloon(1)
-#test_balloon0.play_sound("streak", channel_id=1)
+#test_balloon0.play_sound("streak", channel_id=0)
 #test_ballono1.play_sound("streak", channel_id=9)
 
