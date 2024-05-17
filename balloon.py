@@ -4,9 +4,9 @@ import numpy as np
 import sounddevice as sd
 import threading
 
-sound_hit = "sounds/hit.mp3"
-sound_miss = "sounds/miss.mp3"
-sound_streak = "sounds/streak.mp3"
+sound_hit = "sounds/hit.wav"
+sound_miss = "sounds/miss.wav"
+sound_streak = "sounds/streak.wav"
 num_channels = 16
 #sample_rate = 44100
 sample_rate = 48000
