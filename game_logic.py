@@ -40,6 +40,9 @@ AMOUNT_OF_BALLOONS = 12
 daily_highscore = Highscore("day")
 season_highscore = Highscore("season")
 overall_highscore = Highscore("overall")
+daily_record = 0
+season_record = 0
+overall_record = 0
 
 # instantiate the 12 balloons
 balloons = [Balloon(id) for id in range(AMOUNT_OF_BALLOONS)]
@@ -49,6 +52,7 @@ def update_game(received: str):
     # read first 2 bits
     start_flag = int(received[0])
     end_flag = int(received[1])
+    # read all other bits
     hit_miss_data = received[2:2+(AMOUNT_OF_BALLOONS*2)]
    
     # update game based on received bits
@@ -62,6 +66,12 @@ def update_game(received: str):
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)
+        global daily_record
+        daily_record = daily_highscore[0][0]
+        global season_record
+        season_record = season_highscore[0][0]
+        global overall_record
+        overall_record = overall_highscore[0][0]
     else:
         # read hit/miss-bits for all balloons
         for i in range(0, AMOUNT_OF_BALLOONS*2, 2):

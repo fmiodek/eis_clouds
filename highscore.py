@@ -3,7 +3,7 @@ import datetime
 class Highscore:
     def __init__(self, time_span):
         self.time_span: str = time_span  # day / season / overall
-        self.top_five: list[(int, str, int)] = []
+        self.top_five: list[(int, str, int)] = [] # score, date, balloon_id
         self.header = "score, date, balloon_id\n"
 
     def read_table(self):

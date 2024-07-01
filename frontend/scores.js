@@ -12,6 +12,9 @@ class BalloonScore {
     }
 }
 
+let daily_record = 0;
+let season_record = 0;
+
 // instantiate the 12 score objects
 let scoreObjects = [];
 for (let id=1; id<13; id++) {
@@ -54,6 +57,12 @@ socket.onmessage = event => {
         // update viewed score 
         let scoreDiv = document.querySelector(`#score${scoreObject.id}`);
         scoreDiv.innerHTML = scoreObject.points;
+
+        // updated highscore-records
+        daily_record = score_data[12];
+        season_record = score_data[13];
+        document.querySelector("#tagesrekord").innerHTML = daily_record;
+        document.querySelector("#jahresrekord").innerHTML = season_record;
     }
 };
 
