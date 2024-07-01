@@ -33,6 +33,8 @@ bit 25: miss_flag balloon 12
 """
 
 # amount of consecutive hits until a special sound is played
+HIT_POINTS = 1
+STREAK_POINTS = 3
 STREAK_THRESHOLD = 3
 AMOUNT_OF_BALLOONS = 12
 
@@ -93,9 +95,11 @@ def update_game(received: str):
                     # play streak sound
                     current_balloon.play_sound("streak", channel_id=current_balloon.balloon_id)
                     current_balloon.full_streak = False
+                    current_balloon.score += STREAK_POINTS
                 else:
                     # play hit sound
-                    current_balloon.play_sound("hit", channel_id=current_balloon.balloon_id)    
+                    current_balloon.play_sound("hit", channel_id=current_balloon.balloon_id)
+                    current_balloon.score += HIT_POINTS    
             elif current_balloon.hit == 1 and hit == 0:
                 # back to default
                 current_balloon.hit = 0
