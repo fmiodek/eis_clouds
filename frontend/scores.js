@@ -3,31 +3,23 @@ PORT = 8080;
 
 const scoreList = document.querySelector(".score-list");
 
-class Score {
+class BalloonScore {
     constructor(id) {
         this.id = id;
         this.htmlElement = document.querySelector(`#balloon${id}`);
         this.points = 0;
-        this.place = id;
+        this.rank = id;
     }
 }
 
-/* instantiate the 12 score objects */
+// instantiate the 12 score objects
 let scoreObjects = [];
-for (let i=1; i<=12; i++) {
-    let score = new Score(i);
+for (let id=1; id<13; id++) {
+    let score = new BalloonScore(id);
     scoreObjects.push(score);
 };
 
-/* define the 12 pixel positions */
-let pxPositions = []
-for (let i=0; i<12; i++) {
-    let rect = scoreObjects[i].htmlElement.getBoundingClientRect();
-    pxPositions.push(rect.top);
-}
-
-
-/* websocket to receive score data */
+// websocket to receive score data
 const socket = new WebSocket(`ws://${HOST}:${PORT}`);
 
 socket.onopen = () => {
@@ -36,28 +28,33 @@ socket.onopen = () => {
 
 socket.onmessage = event => {
     console.log("\nNEW DATA")
-    /* get list of points for each balloon and assign it to corresponding Score Object */
+    // get list of points for each balloon and assign it to corresponding Score Object
     let score_data = JSON.parse(event.data);
     for (let i=0; i<12; i++) {
         scoreObjects[i].points = score_data[i]
     }
-    /* sort and rank the objects */
+    // sort and rank the objects
     let scoreObjectsSorted = scoreObjects.slice().sort((score_a, score_b) => score_a.points - score_b.points);
     for (let i=0; i<12; i++) {
-        scoreObjectsSorted[i].place = i + 1;
+        scoreObjectsSorted[i].rank = i+1;
     }
     for (let i=0; i<12; i++) {
         console.log(`ID: ${scoreObjectsSorted[i].id}`);
-        console.log(`Place: ${scoreObjectsSorted[i].place}`);
+        console.log(`Place: ${scoreObjectsSorted[i].rank}`);
         console.log(`Points: ${scoreObjectsSorted[i].points}`);
     }
     
-    /* change positions depending on points */
-    scoreList.innerHTML = ""
+    // update frontend
     for (let i=0; i<12; i++) {
-        scoreList.appendChild(scoreObjectsSorted[i].htmlElement);
-    }
+        // update position
+        let scoreObject = scoreObjectsSorted[i];
+        scoreObjectElemet.htmlElement.removeAttribute("id");
+        scoreObjectElemet.htmlElement.setAttribute("id", `balloon${i+1}`);
 
+        // update viewed score 
+        let scoreDiv = document.querySelector(`#score${scoreObject.id}`);
+        scoreDiv.innerHTML = scoreObject.points;
+    }
 };
 
 socket.onerror = error => {
@@ -69,32 +66,15 @@ socket.onclose = event => {
 };
 
 
-
-/* just for testing generate a random order by klicking on a list item
-let testElement = document.querySelector("#s0");
-testElement.addEventListener("click", () => {
-    let randRanks = []
+/*
+// just for testing ranking mechanism
+// invert the ranking by clicking on 1st element
+let testElement = document.querySelector("#balloon1");
+testElement.addEventListener("click", () => {    
     for (let i=0; i<12; i++) {
-        randPos = Math.floor(Math.random() * (i + 1));
-        randRanks.splice(randPos, 0, i);
+        let balloonScore = scoreObjects[i].htmlElement;
+        balloonScore.removeAttribute("id");
+        balloonScore.setAttribute("id", `balloon${12-i}`)
     }
-    scoreList.innerHTML = ""
-    for (let i=0; i<12; i++) {
-        randId = randRanks[i]
-        scoreList.appendChild(scoreObjects[randId].htmlElement);
-    }    
-})
-
-
-// testing single element (S3)
-let testElement = document.querySelector("#s3");
-testElement.addEventListener("click", () => {
-    scoreList.innerHTML = ""
-    scoreList.appendChild(scoreObjects[3].htmlElement);
-    for (let i=0; i<12; i++) {
-        if (i !== 3) {
-            scoreList.appendChild(scoreObjects[i].htmlElement);
-        }
-    }
-})
+});
 */
