@@ -1,61 +1,114 @@
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
-h1 {
-    padding: 5px;
-    color: white;
-    background-color: black;
+.background-container {
+    position: relative;
+    background-image: url("images/Wolkenfaenger_Screen_Final_BG.jpg");
+    height: 100vh;
+    width: 100vw;
+    background-size: 100% 100%; /* Das Bild wird so skaliert, dass es den gesamten Container ausfüllt */
+
 }
 
-ul {
-    list-style-type: none;
-    padding: 5px;
+.balloon {
+    display: flex;
+    font-size: 2vh;
 }
 
-li {
-    border: 1px solid black;
-    background-color: white;
-    margin: 10px;
-    padding: 5px;
-    font-size: 1.5rem;
-    cursor: pointer;
+.id {
+    margin-right: 5vh;
 }
 
-#s0 {
-    background-color: yellow;
+.score {
+    
 }
-#s1 {
-    background-color: greenyellow;
+
+#balloon1 {
+    position: absolute;
+    top: 22vh;
+    left: 35vw;
 }
-#s2 {
-    background-color: blue;
+
+#balloon2 {
+    position: absolute;
+    top: 29.7vh;
+    left: 35vw;
 }
-#s3 {
-    background-color: red;
+
+#balloon3 {
+    position: absolute;
+    top: 34.4vh;
+    left: 35vw;
 }
-#s4 {
-    background-color: magenta;
+
+#balloon4 {
+    position: absolute;
+    top: 39vh;
+    left: 35vw;
 }
-#s5 {
-    background-color: cyan;
+
+#balloon5 {
+    position: absolute;
+    top: 43.7vh;
+    left: 35vw;
 }
-#s6 {
-    background-color: orange;
+
+#balloon6 {
+    position: absolute;
+    top: 48.5vh;
+    left: 35vw;
 }
-#s7 {
-    background-color: lightgreen;
+
+#balloon7 {
+    position: absolute;
+    top: 53.2vh;
+    left: 35vw;
 }
-#s8 {
-    background-color: blueviolet;
+
+#balloon8 {
+    position: absolute;
+    top: 57.8vh;
+    left: 35vw;
 }
-#s9 {
-    background-color: gold;
+
+#balloon9 {
+    position: absolute;
+    top: 62.5vh;
+    left: 35vw;
 }
-#s10 {
-    background-color: lawngreen;
+
+#balloon10 {
+    position: absolute;
+    top: 67.1vh;
+    left: 35vw;
 }
-#s11 {
-    background-color: teal;
+
+#balloon11 {
+    position: absolute;
+    top: 71.8vh;
+    left: 35vw;
+}
+
+#balloon12 {
+    position: absolute;
+    top: 76.5vh;
+    left: 35vw;
+}
+
+#tagesrekord {
+    font-size: 3vh;
+    position: absolute;
+    top: 85vh;
+    left: 70vw;
+}
+
+#jahresrekord {
+    font-size: 3vh;
+    position: absolute;
+    top: 89vh;
+    left: 70vw;
 }

@@ -1,20 +1,20 @@
 HOST = "localhost";
 PORT = 8080;
 
-const scoreList = document.querySelector("#score-list");
+const scoreList = document.querySelector(".score-list");
 
 class Score {
     constructor(id) {
         this.id = id;
-        this.htmlElement = document.querySelector(`#s${id}`);
+        this.htmlElement = document.querySelector(`#balloon${id}`);
         this.points = 0;
-        this.place = id+1;
+        this.place = id;
     }
 }
 
 /* instantiate the 12 score objects */
 let scoreObjects = [];
-for (let i=0; i<12; i++) {
+for (let i=1; i<=12; i++) {
     let score = new Score(i);
     scoreObjects.push(score);
 };
@@ -84,9 +84,9 @@ testElement.addEventListener("click", () => {
         scoreList.appendChild(scoreObjects[randId].htmlElement);
     }    
 })
-*/
 
-/* testing single element (S3) */
+
+// testing single element (S3)
 let testElement = document.querySelector("#s3");
 testElement.addEventListener("click", () => {
     scoreList.innerHTML = ""
@@ -97,3 +97,4 @@ testElement.addEventListener("click", () => {
         }
     }
 })
+*/
