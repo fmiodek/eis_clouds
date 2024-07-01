@@ -75,15 +75,17 @@ socket.onclose = event => {
 };
 
 
-/*
+
 // just for testing ranking mechanism
 // invert the ranking by clicking on 1st element
 let testElement = document.querySelector("#balloon1");
 testElement.addEventListener("click", () => {    
     for (let i=0; i<12; i++) {
-        let balloonScore = scoreObjects[i].htmlElement;
-        balloonScore.removeAttribute("id");
-        balloonScore.setAttribute("id", `balloon${12-i}`)
+        let balloonScore = scoreObjects[i];
+        balloonScore.htmlElement.removeAttribute("id");
+        balloonScore.htmlElement.setAttribute("id", `balloon${12-i}`);
+
+        let scoreDiv = document.querySelector(`#score${balloonScore.id}`);
+        scoreDiv.innerHTML = i+1;
     }
 });
-*/
