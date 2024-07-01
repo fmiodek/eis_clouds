@@ -1,8 +1,16 @@
+@font-face {
+    font-family: 'Hoss Round Medium';
+    src: url('fonts/fonnts.com-Hoss_Round_Medium.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family: 'Hoss Round Medium', sans-serif;
 }
 
 .background-container {
@@ -16,12 +24,12 @@ body {
 
 .balloon {
     display: flex;
-    font-size: 2vh;
+    font-size: 3vh;
 }
 
 .id {
     margin-right: 5vh;
-    color: rgb(5, 121, 127);
+    color: rgb(3, 138, 145);
 }
 
 .score {
@@ -30,74 +38,74 @@ body {
 
 #balloon1 {
     position: absolute;
-    top: 22vh;
-    left: 35vw;
+    top: 21.4vh;
+    left: 34vw;
 }
 
 #balloon2 {
     position: absolute;
-    top: 29.7vh;
-    left: 35vw;
+    top: 29vh;
+    left: 33.1vw;
 }
 
 #balloon3 {
     position: absolute;
-    top: 34.4vh;
-    left: 35vw;
+    top: 33.8vh;
+    left: 33.2vw;
 }
 
 #balloon4 {
     position: absolute;
-    top: 39vh;
-    left: 35vw;
+    top: 38.5vh;
+    left: 33.1vw;
 }
 
 #balloon5 {
     position: absolute;
-    top: 43.7vh;
-    left: 35vw;
+    top: 43.2vh;
+    left: 33.2vw;
 }
 
 #balloon6 {
     position: absolute;
-    top: 48.5vh;
-    left: 35vw;
+    top: 47.8vh;
+    left: 33.1vw;
 }
 
 #balloon7 {
     position: absolute;
-    top: 53.2vh;
-    left: 35vw;
+    top: 52.5vh;
+    left: 33.4vw;
 }
 
 #balloon8 {
     position: absolute;
-    top: 57.8vh;
-    left: 35vw;
+    top: 57.2vh;
+    left: 33.1vw;
 }
 
 #balloon9 {
     position: absolute;
-    top: 62.5vh;
-    left: 35vw;
+    top: 61.9vh;
+    left: 33.2vw;
 }
 
 #balloon10 {
     position: absolute;
-    top: 67.1vh;
-    left: 35vw;
+    top: 66.5vh;
+    left: 34.1vw;
 }
 
 #balloon11 {
     position: absolute;
-    top: 71.8vh;
-    left: 35vw;
+    top: 71.2vh;
+    left: 34.9vw;
 }
 
 #balloon12 {
     position: absolute;
-    top: 76.5vh;
-    left: 35vw;
+    top: 76vh;
+    left: 34.2vw;
 }
 
 #tagesrekord {
@@ -115,3 +123,6 @@ body {
     top: 89vh;
     left: 70vw;
 }
+
+
+
