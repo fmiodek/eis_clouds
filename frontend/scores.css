@@ -28,12 +28,13 @@ body {
 }
 
 .id {
-    margin-right: 5vh;
+    margin-right: 10vw;
     color: rgb(3, 138, 145);
 }
 
 .score {
     color: white;
+    text-align: right;
 }
 
 #balloon1 {
