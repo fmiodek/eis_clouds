@@ -4,8 +4,8 @@ from highscore import Highscore
 """
 receiving bits overview
 
-bit 0: start_flag
-bit 1: end_flag
+bit 0: start_end_flag
+bit 1: sound_flag
 bit 2: hit_flag balloon 1
 bit 3: miss_flag balloon 1
 bit 4: hit_flag balloon 2
@@ -45,6 +45,8 @@ overall_highscore = Highscore("overall")
 daily_record = 0
 season_record = 0
 overall_record = 0
+start_flag = 2
+end_flag = 2
 
 # instantiate the 12 balloons
 balloons = [Balloon(id) for id in range(AMOUNT_OF_BALLOONS)]
@@ -52,40 +54,41 @@ balloons = [Balloon(id) for id in range(AMOUNT_OF_BALLOONS)]
 # take the received bits and update the game-state accordingly
 def update_game(received: str):
     # read first 2 bits
-    start_flag = 2
+    global start_flag
     start_flag_new = int(received[0])
-    end_flag = 2
+    global end_flag
     end_flag_new = int(received[1])
     # read all other bits
-    hit_miss_data = received[2:2+(AMOUNT_OF_BALLOONS*2)]
-   
+    hit_miss_data = received[2:]
+    print(received)
     # update game based on received bits
     if start_flag_new == 1 and start_flag_new != start_flag:
         # reset balloons and score-list
-        start_flag = start_flag_new
         for balloon in balloons:
             balloon.reset_balloon()
+            
+        for balloon in balloons:
+            if balloon.balloon_id == 0 or balloon.balloon_id == 6:
+                balloon.play_sound("background", channel_id=balloon.balloon_id)
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
-        end_flag = end_flag_new
         scores = [balloon.score for balloon in balloons]
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)
         global daily_record
-        daily_record = daily_highscore[0][0]
+        daily_record = daily_highscore.top_five[0][0]
         global season_record
-        season_record = season_highscore[0][0]
+        season_record = season_highscore.top_five[0][0]
         global overall_record
-        overall_record = overall_highscore[0][0]
+        overall_record = overall_highscore.top_five[0][0]
     else:
         # read hit/miss-bits for all balloons
         for i in range(0, AMOUNT_OF_BALLOONS*2, 2):
-            current_balloon = balloons[i]
+            current_balloon = balloons[i//2]
             hit = int(hit_miss_data[i])
             miss = int(hit_miss_data[i+1])
-
             # simulate edge trigger
             if current_balloon.hit == 0 and hit == 0:
                 # nothing happens (except maybe a miss)
@@ -128,3 +131,6 @@ def update_game(received: str):
             elif current_balloon.miss == 1 and miss == 1:
                 # sent twice -> just ignore
                 pass
+
+    start_flag = start_flag_new
+    end_flag = end_flag_new

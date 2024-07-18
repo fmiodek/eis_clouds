@@ -2,7 +2,7 @@ import socket
 import time
 import game_logic
 
-IP = "192.168.1.100"
+IP = "192.168.76.150"
 PORT = 50001
 
 # while loop for automatic reconnecting if connection is lost

@@ -52,8 +52,8 @@ class Balloon:
     def play_sound(self, sound_name: str, channel_id: int):
         def play_sound_thread(sound_name, channel_id):
             sound_file = ""
-            if sound_name == "streak":
-                sound_file = sound_streak
+            if sound_name == "background":
+                sound_file = sound_background
             elif sound_name == "hit":
                 sound_file = sound_hit
             elif sound_name == "miss":
