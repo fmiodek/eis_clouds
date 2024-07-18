@@ -52,18 +52,23 @@ balloons = [Balloon(id) for id in range(AMOUNT_OF_BALLOONS)]
 # take the received bits and update the game-state accordingly
 def update_game(received: str):
     # read first 2 bits
-    start_flag = int(received[0])
-    end_flag = int(received[1])
+    start_flag = 2
+    start_flag_new = int(received[0])
+    end_flag = 2
+    end_flag_new = int(received[1])
     # read all other bits
     hit_miss_data = received[2:2+(AMOUNT_OF_BALLOONS*2)]
    
     # update game based on received bits
-    if start_flag:
+    if start_flag_new == 1 and start_flag_new != start_flag:
         # reset balloons and score-list
+        start_flag = start_flag_new
         for balloon in balloons:
             balloon.reset_balloon()
-    elif end_flag:
+
+    elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
+        end_flag = end_flag_new
         scores = [balloon.score for balloon in balloons]
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
