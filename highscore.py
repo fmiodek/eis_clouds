@@ -60,6 +60,3 @@ class Highscore:
 test_score = Highscore("season")
 new_scores = [0,0,0,0,0,55,0,0,23,0,0,10]
 test_score.update_table(new_scores)
-
-
-

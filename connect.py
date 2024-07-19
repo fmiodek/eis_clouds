@@ -2,6 +2,9 @@ import socket
 import time
 import game_logic
 
+
+
+"""TCP"""
 IP = "192.168.76.150"
 PORT = 50001
 
@@ -33,6 +36,8 @@ while True:
                 # reverse bytes and concat afterwards
                 received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
                 print("received:", received)
+                if received[15] != "0":
+                    print("\n!!!!\n")
                 
                 # handle received data, send response, or trigger actions
                 game_logic.update_game(received)
