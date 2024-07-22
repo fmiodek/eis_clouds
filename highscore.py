@@ -58,7 +58,7 @@ class Highscore:
             if self.top_five[0][1][-2:] != current_date[-2:]:
                 self.reset_table()
         self.check_new_scores(new_scores)
-        if self.new_score:
+        if self.got_new_score:
             self.write_table()
             self.got_new_score = False
 
