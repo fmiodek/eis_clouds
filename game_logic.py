@@ -78,7 +78,9 @@ def update_game(received: str):
         elif end_flag == 1:
             for balloon in balloons:
                 balloon.send_to_max(balloon.balloon_id, "loading")
-                
+        sound_flag = sound_flag_new
+    
+    
     
     # read all other bits for balloon data
     hit_miss_data = received[2:]
