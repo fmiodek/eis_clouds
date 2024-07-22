@@ -58,9 +58,9 @@ class Balloon:
         elif sound_name == "hit":
             sound_id = 2
         elif sound_name == "collect":
-            sound_file = 3
+            sound_id = 3
         elif sound_name == "loading":
-            sound_file = 4
+            sound_id = 4
         elif sound_name == "stop":
             sound_id = 5
 
