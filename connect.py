@@ -35,9 +35,6 @@ while True:
                 received4= ''.join(format(incoming_data[3], '08b'))
                 # reverse bytes and concat afterwards
                 received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
-                print("received:", received)
-                if received[15] != "0":
-                    print("\n!!!!\n")
                 
                 # handle received data, send response, or trigger actions
                 game_logic.update_game(received)

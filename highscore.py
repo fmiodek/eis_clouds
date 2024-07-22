@@ -15,10 +15,11 @@ class Highscore:
                 score, date, balloon_id = score_data.strip("\n").split(", ")
                 self.top_five.append((int(score), date, balloon_id))
 
-    def check_new_scores(self, new_scores: list[int]):
+    def check_new_scores(self, new_scores):
         current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
-        for balloon_id, new_score in enumerate(new_scores):
+        for balloon_id, new_score in new_scores:
             last_score = self.top_five[-1][0]
+            print(new_score)
             if new_score > last_score:
                 self.top_five.pop()
                 self.top_five.append((new_score, current_date, balloon_id))
@@ -56,7 +57,3 @@ class Highscore:
         self.check_new_scores(new_scores)
         self.write_table()
 
-
-test_score = Highscore("season")
-new_scores = [0,0,0,0,0,55,0,0,23,0,0,10]
-test_score.update_table(new_scores)

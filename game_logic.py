@@ -74,18 +74,18 @@ def update_game(received: str):
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
-        """
-        scores = [balloon.score for balloon in balloons]
+        
+        scores = [(balloon.balloon_id, balloon.score) for balloon in balloons]
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)
         global daily_record
-        daily_record = daily_highscore.top_five[0][0]
+        daily_record = int(daily_highscore.top_five[0][0])
         global season_record
         season_record = season_highscore.top_five[0][0]
         global overall_record
         overall_record = overall_highscore.top_five[0][0]
-        """
+        
         for balloon in balloons:
             balloon.send_to_max(balloon.balloon_id, "stop")
 
