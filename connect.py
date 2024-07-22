@@ -20,9 +20,8 @@ while True:
         print(f"connected to server on {IP}:{PORT}")
 
         # ready-message for the server
-        ready = bytes([128]) # 10000000 -> "Ready" in communication protocol
+        ready = bytes([1]) #"Ready" in communication protocol
         client_sock.sendall(ready)
-        print("sent:", bin(int.from_bytes(ready, byteorder='little'))[2:].zfill(8))
 
         # receive data
         while True:

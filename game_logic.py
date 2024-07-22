@@ -30,6 +30,7 @@ bit 22 (2.6): hit_flag balloon 11
 bit 23 (2.7): miss_flag balloon 11
 bit 24 (3.0): hit_flag balloon 12
 bit 25 (3.1): miss_flag balloon 12
+bit 26 (3.2): sound_flag -> 1:an 0:aus
 """
 
 # amount of consecutive hits until a special sound is played
@@ -57,10 +58,17 @@ balloons = [Balloon(id+1) for id in range(AMOUNT_OF_BALLOONS)]
 def update_game(received: str):
     # read first 2 bits
     global start_flag
-    start_flag_new = int(received[0])
     global end_flag
+    start_flag_new = int(received[0])
     end_flag_new = int(received[1])
-    # read all other bits
+   
+    # read sound_flag bit
+    sound_flag = int(received[26])
+    if sound_flag == 0:
+        for balloon in balloons:
+                balloon.send_to_max(balloon.balloon_id, "stop")
+    
+    # read all other bits for balloon data
     hit_miss_data = received[2:]
     print(received)
     # update game based on received bits
@@ -69,8 +77,9 @@ def update_game(received: str):
         for balloon in balloons:
             balloon.reset_balloon()
             
-        for balloon in balloons:
-            balloon.send_to_max(balloon.balloon_id, "background")
+        if sound_flag == 1:
+            for balloon in balloons:
+                balloon.send_to_max(balloon.balloon_id, "background")
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
@@ -86,8 +95,9 @@ def update_game(received: str):
         global overall_record
         overall_record = int(overall_highscore.best[0])
         """
-        for balloon in balloons:
-            balloon.send_to_max(balloon.balloon_id, "stop")
+        if sound_flag == 1:
+            for balloon in balloons:
+                balloon.send_to_max(balloon.balloon_id, "loading")
 
     elif start_flag_new == 1 and end_flag_new == 0:
         # read hit/miss-bits for all balloons
