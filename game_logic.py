@@ -50,6 +50,7 @@ overall_record = 0
 # init
 start_flag = 2
 end_flag = 2
+sound_flag = 2
 
 # instantiate the 12 balloons
 balloons = [Balloon(id+1) for id in range(AMOUNT_OF_BALLOONS)]
@@ -59,14 +60,25 @@ def update_game(received: str):
     # read first 2 bits
     global start_flag
     global end_flag
+    global sound_flag
+
     start_flag_new = int(received[0])
     end_flag_new = int(received[1])
    
-    # read sound_flag bit
-    sound_flag = int(received[26])
-    if sound_flag == 0:
+    # read sound_flag bit and handle mute
+    sound_flag_new = int(received[26])
+    if sound_flag_new == 0 and sound_flag_new != sound_flag:
         for balloon in balloons:
                 balloon.send_to_max(balloon.balloon_id, "stop")
+        sound_flag = sound_flag_new
+    elif sound_flag_new == 1 and sound_flag_new != sound_flag:
+        if start_flag == 1:
+            for balloon in balloons:
+                balloon.send_to_max(balloon.balloon_id, "background")
+        elif end_flag == 1:
+            for balloon in balloons:
+                balloon.send_to_max(balloon.balloon_id, "loading")
+                
     
     # read all other bits for balloon data
     hit_miss_data = received[2:]
