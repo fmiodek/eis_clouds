@@ -31,6 +31,7 @@ bit 23 (2.7): miss_flag balloon 11
 bit 24 (3.0): hit_flag balloon 12
 bit 25 (3.1): miss_flag balloon 12
 bit 26 (3.2): sound_flag -> 1:an 0:aus
+bit 27 (3.3): god_mode -> 1:an 0:aus
 """
 
 # amount of consecutive hits until a special sound is played
@@ -51,6 +52,7 @@ overall_record = 0
 start_flag = 2
 end_flag = 2
 sound_flag = 2
+god_mode = 2
 
 # instantiate the 12 balloons
 balloons = [Balloon(id+1) for id in range(AMOUNT_OF_BALLOONS)]
@@ -68,16 +70,10 @@ def update_game(received: str):
     # read sound_flag bit and handle mute
     sound_flag_new = int(received[26])
     if sound_flag_new == 0 and sound_flag_new != sound_flag:
-        for balloon in balloons:
-                balloon.send_to_max(balloon.balloon_id, "stop")
+        balloons[0].send_to_max(0, "mute")
         sound_flag = sound_flag_new
     elif sound_flag_new == 1 and sound_flag_new != sound_flag:
-        if start_flag == 1:
-            for balloon in balloons:
-                balloon.send_to_max(balloon.balloon_id, "background")
-        elif end_flag == 1:
-            for balloon in balloons:
-                balloon.send_to_max(balloon.balloon_id, "loading")
+        balloons[0].send_to_max(0, "unmute")
         sound_flag = sound_flag_new
     
     
@@ -91,9 +87,9 @@ def update_game(received: str):
         for balloon in balloons:
             balloon.reset_balloon()
             
-        if sound_flag == 1:
-            for balloon in balloons:
-                balloon.send_to_max(balloon.balloon_id, "background")
+        for balloon in balloons:
+            balloon.send_to_max(balloon.balloon_id, "stop")
+            balloon.send_to_max(balloon.balloon_id, "background")
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
@@ -109,9 +105,9 @@ def update_game(received: str):
         global overall_record
         overall_record = int(overall_highscore.best[0])
         """
-        if sound_flag == 1:
-            for balloon in balloons:
-                balloon.send_to_max(balloon.balloon_id, "loading")
+        for balloon in balloons:
+            balloon.send_to_max(balloon.balloon_id, "stop")
+            balloon.send_to_max(balloon.balloon_id, "loading")
 
     elif start_flag_new == 1 and end_flag_new == 0:
         # read hit/miss-bits for all balloons

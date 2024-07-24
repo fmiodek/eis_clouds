@@ -63,6 +63,11 @@ class Balloon:
             sound_id = 4
         elif sound_name == "stop":
             sound_id = 5
+        
+        elif sound_name == "mute":
+            sound_id = 0
+        elif sound_name == "unmute":
+            sound_id = 100
 
         data_to_send = [channel_id, sound_id]
         print(data_to_send)
