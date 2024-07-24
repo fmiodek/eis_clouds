@@ -63,6 +63,8 @@ class Balloon:
             sound_id = 4
         elif sound_name == "stop":
             sound_id = 5
+        elif sound_name == "god_mode":
+            sound_id = 6
         
         elif sound_name == "mute":
             sound_id = 0

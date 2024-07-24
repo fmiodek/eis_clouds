@@ -63,9 +63,18 @@ def update_game(received: str):
     global start_flag
     global end_flag
     global sound_flag
+    global god_mode
 
     start_flag_new = int(received[0])
     end_flag_new = int(received[1])
+
+    # check for god_mode
+    god_mode_new = int(received[26])
+    if god_mode_new == 1 and god_mode_new != god_mode:
+        balloons[0].send_to_max(99, "god_mode")
+        god_mode = god_mode_new
+    elif god_mode_new == 0 and god_mode_new != god_mode:
+        god_mode = god_mode_new
    
     # read sound_flag bit and handle mute
     sound_flag_new = int(received[26])
