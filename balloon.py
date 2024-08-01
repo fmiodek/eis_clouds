@@ -1,9 +1,3 @@
-# required sound format: mp3 with 44100 Hz
-sound_hit = "sounds/hit.mp3"
-sound_miss = "sounds/miss.mp3"
-sound_streak = "sounds/streak.mp3"
-sound_background = "sounds/background.mp3"
-
 """UDP"""
 from pythonosc import udp_client
 
@@ -18,38 +12,18 @@ print("udp client ready")
 class Balloon:
     def __init__(self, balloon_id: int):
         self.balloon_id = balloon_id
-        self.sequence = []
         self.score = 0
-        self.streak = 0
-        self.full_streak = False
         self.hit = 0
-        self.miss = 0
+        self.collect = 0
 
     # reset ballon for new game
     def reset_balloon(self):
-        self.sequence = []
         self.score = 0
-        self.streak = 0
-        self.full_streak = False
         self.hit = 0
-        self.miss = 0
+        self.collect = 0
 
-    def extend_sequence(self, hit_flag: int):
-        self.sequence.append(hit_flag)
-
-    def count_hits(self, hit_flag: int):
-        self.score += hit_flag
-
-    def check_streak(self, ongoing, streak_threshold: int):
-        # increase streak if cloud was hit, otherwise set it to zero
-        if ongoing == True:
-            self.streak += 1
-        else:
-            self.streak = 0
-        # check for special streak sound
-        if self.streak > 0:
-            if self.streak % streak_threshold == 0:
-                self.full_streak = True
+    def count_points(self, hit_points: int):
+        self.score += hit_points
 
     def send_to_max(self, channel_id, sound_name):
         sound_id = -1

@@ -3,7 +3,6 @@ import time
 import game_logic
 
 
-
 """TCP"""
 IP = "192.168.76.150"
 PORT = 50001
@@ -42,7 +41,7 @@ while True:
 
     except Exception as e:
         print("Error:", e)
-        "try reconnecting (from error)"
+        print("try reconnecting (from error)")
         client_sock.close()
         time.sleep(1)
 
@@ -51,9 +50,6 @@ while True:
         break
         
     finally:
-        "try reconnecting (from finally)"
+        print("try reconnecting (from finally)")
         client_sock.close()
         time.sleep(1)
-        
-
-

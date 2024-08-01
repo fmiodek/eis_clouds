@@ -5,13 +5,11 @@ class Highscore:
     def __init__(self, time_span):
         self.time_span: str = time_span  # day / season / overall
         self.best = (0, 0, 0) # score, date, balloon_id
-        self.header = "score, date, balloon_id\n"
         self.got_new_score = False
 
     def read_table(self):
         file_path = "highscores/" + self.time_span + ".txt"
         with open(file_path, "r") as current_highscore:
-            current_highscore.readline()
             score_data = current_highscore.readline()    
             score, date, balloon_id = score_data.strip("\n").split(", ")
             self.best = (int(score), date, int(balloon_id))
@@ -26,14 +24,12 @@ class Highscore:
     def write_table(self):
         file_path = "highscores/" + self.time_span + ".txt"
         with open(file_path, "w") as new_highscore:
-            new_highscore.write(self.header)
             new_entry = str(self.best[0]) + ", " + self.best[1] + ", " + str(self.best[2]) + "\n"
             new_highscore.write(new_entry)
 
     def reset_table(self):
         current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
-        reset_entry = (0, current_date, 0)
-        self.best = reset_entry
+        self.best = (0, current_date, 0)
         self.write_table()
 
     def update_table(self, new_scores):
