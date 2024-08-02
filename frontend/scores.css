@@ -37,76 +37,136 @@ body {
     text-align: right;
 }
 
-#balloon1 {
+#id1 {
     position: absolute;
     top: 21.4vh;
     left: 34vw;
 }
+#score1 {
+    position: absolute;
+    top: 21.4vh;
+    left: 50vw;
+}
 
-#balloon2 {
+#id2 {
     position: absolute;
     top: 29vh;
-    left: 33.1vw;
+    left: 34vw;
+}
+#score2 {
+    position: absolute;
+    top: 29vh;
+    left: 50vw;
 }
 
-#balloon3 {
+#id3 {
     position: absolute;
     top: 33.8vh;
-    left: 33.2vw;
+    left: 34vw;
+}
+#score3 {
+    position: absolute;
+    top: 33.8vh;
+    left: 50vw;
 }
 
-#balloon4 {
+#id4 {
     position: absolute;
     top: 38.5vh;
-    left: 33.1vw;
+    left: 34vw;
+}
+#score4 {
+    position: absolute;
+    top: 38.5vh;
+    left: 50vw;
 }
 
-#balloon5 {
+#id5 {
     position: absolute;
     top: 43.2vh;
-    left: 33.2vw;
+    left: 34vw;
+}
+#score5 {
+    position: absolute;
+    top: 43.2vh;
+    left: 50vw;
 }
 
-#balloon6 {
+#id6 {
     position: absolute;
     top: 47.8vh;
-    left: 33.1vw;
+    left: 34vw;
+}
+#score6 {
+    position: absolute;
+    top: 47.8vh;
+    left: 50vw;
 }
 
-#balloon7 {
+#id7 {
     position: absolute;
     top: 52.5vh;
-    left: 33.4vw;
+    left: 34vw;
+}
+#score7 {
+    position: absolute;
+    top: 52.5vh;
+    left: 50vw;
 }
 
-#balloon8 {
+#id8 {
     position: absolute;
     top: 57.2vh;
-    left: 33.1vw;
+    left: 34vw;
+}
+#score8 {
+    position: absolute;
+    top: 57.2vh;
+    left: 50vw;
 }
 
-#balloon9 {
+#id9 {
     position: absolute;
     top: 61.9vh;
-    left: 33.2vw;
+    left: 34vw;
+}
+#score9 {
+    position: absolute;
+    top: 61.9vh;
+    left: 50vw;
 }
 
-#balloon10 {
+#id10 {
     position: absolute;
     top: 66.5vh;
-    left: 34.1vw;
+    left: 34vw;
+}
+#score10 {
+    position: absolute;
+    top: 66.5vh;
+    left: 50vw;
 }
 
-#balloon11 {
+#id11 {
     position: absolute;
     top: 71.2vh;
-    left: 34.9vw;
+    left: 34vw;
+}
+#score11 {
+    position: absolute;
+    top: 71.2vh;
+    left: 50vw;
 }
 
-#balloon12 {
+#id12 {
     position: absolute;
     top: 76vh;
-    left: 34.2vw;
+    left: 34vw;
+}
+#score12 {
+    position: absolute;
+    top: 76vh;
+    left: 50vw;
 }
 
 #tagesrekord {
@@ -124,6 +184,3 @@ body {
     top: 89vh;
     left: 70vw;
 }
-
-
-
