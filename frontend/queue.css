@@ -10,6 +10,9 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
+    background-color: black;;
+    display: flex;
+    justify-content: center;
     font-family: 'Hoss Round Medium', sans-serif;
 }
 
@@ -17,9 +20,8 @@ body {
     position: relative;
     background-image: url("images/Wolkenfaenger_Screen_Final_BG.jpg");
     height: 100vh;
-    width: 100vw;
+    width: 32vw;
     background-size: 100% 100%;
-
 }
 
 .balloon {
@@ -30,7 +32,7 @@ body {
 .id {
     margin-right: 10vw;
     color: rgb(3, 138, 145);
-    width: 7.5vw;
+    width: 2.3vw;
     height: 4vh;
     display: flex;
     justify-content: center;
@@ -44,152 +46,152 @@ body {
     display: flex;
     justify-content: right;
     align-items: center;
-    width: 15vw;
+    width: 5vw;
     border: 1px solid black;
 }
 
 #id1 {
     position: absolute;
     top: 21.0vh;
-    left: 32.8vw;
+    left: 10.5vw;
 }
 #score1 {
     position: absolute;
     top: 21.0vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id2 {
     position: absolute;
     top: 28.7vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score2 {
     position: absolute;
     top: 28.7vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id3 {
     position: absolute;
     top: 33.4vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score3 {
     position: absolute;
     top: 33.4vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id4 {
     position: absolute;
     top: 38.1vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score4 {
     position: absolute;
     top: 38.1vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id5 {
     position: absolute;
     top: 42.8vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score5 {
     position: absolute;
     top: 42.8vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id6 {
     position: absolute;
     top: 47.5vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score6 {
     position: absolute;
     top: 47.5vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id7 {
     position: absolute;
     top: 52.2vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score7 {
     position: absolute;
     top: 52.2vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id8 {
     position: absolute;
     top: 56.9vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score8 {
     position: absolute;
     top: 56.9vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id9 {
     position: absolute;
     top: 61.5vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score9 {
     position: absolute;
     top: 61.5vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id10 {
     position: absolute;
     top: 66.2vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score10 {
     position: absolute;
     top: 66.2vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id11 {
     position: absolute;
     top: 70.9vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score11 {
     position: absolute;
     top: 70.9vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #id12 {
     position: absolute;
     top: 75.6vh;
-    left: 32.65vw;
+    left: 10.5vw;
 }
 #score12 {
     position: absolute;
     top: 75.6vh;
-    left: 50vw;
+    left: 15vw;
 }
 
 #tagesrekord {
     display: flex;
     justify-content: right;
     align-items: center;
-    width: 15vw;
+    width: 5vw;
     font-size: 3vh;
     color: white;
     position: absolute;
     top: 85vh;
-    left: 69vw;
+    left: 22vw;
     border: 1px solid black;
 }
 
@@ -197,11 +199,11 @@ body {
     display: flex;
     justify-content: right;
     align-items: center;
-    width: 15vw;
+    width: 5vw;
     font-size: 3vh;
     color: white;
     position: absolute;
     top: 89vh;
-    left: 69vw;
+    left: 22vw;
     border: 1px solid black;
 }
