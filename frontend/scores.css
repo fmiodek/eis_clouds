@@ -30,157 +30,178 @@ body {
 .id {
     margin-right: 10vw;
     color: rgb(3, 138, 145);
+    width: 7.5vw;
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid black;
 }
 
 .score {
     color: white;
-    text-align: right;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 15vw;
+    border: 1px solid black;
 }
 
 #id1 {
     position: absolute;
-    top: 21.4vh;
-    left: 34vw;
+    top: 21.0vh;
+    left: 32.8vw;
 }
 #score1 {
     position: absolute;
-    top: 21.4vh;
+    top: 21.0vh;
     left: 50vw;
 }
 
 #id2 {
     position: absolute;
-    top: 29vh;
-    left: 34vw;
+    top: 28.7vh;
+    left: 32.65vw;
 }
 #score2 {
     position: absolute;
-    top: 29vh;
+    top: 28.7vh;
     left: 50vw;
 }
 
 #id3 {
     position: absolute;
-    top: 33.8vh;
-    left: 34vw;
+    top: 33.4vh;
+    left: 32.65vw;
 }
 #score3 {
     position: absolute;
-    top: 33.8vh;
+    top: 33.4vh;
     left: 50vw;
 }
 
 #id4 {
     position: absolute;
-    top: 38.5vh;
-    left: 34vw;
+    top: 38.1vh;
+    left: 32.65vw;
 }
 #score4 {
     position: absolute;
-    top: 38.5vh;
+    top: 38.1vh;
     left: 50vw;
 }
 
 #id5 {
     position: absolute;
-    top: 43.2vh;
-    left: 34vw;
+    top: 42.8vh;
+    left: 32.65vw;
 }
 #score5 {
     position: absolute;
-    top: 43.2vh;
+    top: 42.8vh;
     left: 50vw;
 }
 
 #id6 {
     position: absolute;
-    top: 47.8vh;
-    left: 34vw;
+    top: 47.5vh;
+    left: 32.65vw;
 }
 #score6 {
     position: absolute;
-    top: 47.8vh;
+    top: 47.5vh;
     left: 50vw;
 }
 
 #id7 {
     position: absolute;
-    top: 52.5vh;
-    left: 34vw;
+    top: 52.2vh;
+    left: 32.65vw;
 }
 #score7 {
     position: absolute;
-    top: 52.5vh;
+    top: 52.2vh;
     left: 50vw;
 }
 
 #id8 {
     position: absolute;
-    top: 57.2vh;
-    left: 34vw;
+    top: 56.9vh;
+    left: 32.65vw;
 }
 #score8 {
     position: absolute;
-    top: 57.2vh;
+    top: 56.9vh;
     left: 50vw;
 }
 
 #id9 {
     position: absolute;
-    top: 61.9vh;
-    left: 34vw;
+    top: 61.5vh;
+    left: 32.65vw;
 }
 #score9 {
     position: absolute;
-    top: 61.9vh;
+    top: 61.5vh;
     left: 50vw;
 }
 
 #id10 {
     position: absolute;
-    top: 66.5vh;
-    left: 34vw;
+    top: 66.2vh;
+    left: 32.65vw;
 }
 #score10 {
     position: absolute;
-    top: 66.5vh;
+    top: 66.2vh;
     left: 50vw;
 }
 
 #id11 {
     position: absolute;
-    top: 71.2vh;
-    left: 34vw;
+    top: 70.9vh;
+    left: 32.65vw;
 }
 #score11 {
     position: absolute;
-    top: 71.2vh;
+    top: 70.9vh;
     left: 50vw;
 }
 
 #id12 {
     position: absolute;
-    top: 76vh;
-    left: 34vw;
+    top: 75.6vh;
+    left: 32.65vw;
 }
 #score12 {
     position: absolute;
-    top: 76vh;
+    top: 75.6vh;
     left: 50vw;
 }
 
 #tagesrekord {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 15vw;
     font-size: 3vh;
     color: white;
     position: absolute;
     top: 85vh;
-    left: 70vw;
+    left: 69vw;
+    border: 1px solid black;
 }
 
 #jahresrekord {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 15vw;
     font-size: 3vh;
     color: white;
     position: absolute;
     top: 89vh;
-    left: 70vw;
+    left: 69vw;
+    border: 1px solid black;
 }

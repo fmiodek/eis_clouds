@@ -22,6 +22,7 @@ for (let id=1; id<13; id++) {
     balloonScores.push(ballonScore);
 };
 
+
 // websocket to receive score data
 const socket = new WebSocket(`ws://${HOST}:${PORT}`);
 
@@ -37,33 +38,29 @@ socket.onmessage = event => {
         balloonScores[i].points = score_data[i]
     }
     // sort and rank the objects
-    let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_a.points - score_b.points);
+    let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_b.points - score_a.points);
     for (let i=0; i<12; i++) {
         balloonScoresSorted[i].rank = i+1;
     }
     for (let i=0; i<12; i++) {
         console.log(`ID: ${balloonScoresSorted[i].id}`);
-        console.log(`Place: ${balloonScoresSorted[i].rank}`);
+        console.log(`Rank: ${balloonScoresSorted[i].rank}`);
         console.log(`Points: ${balloonScoresSorted[i].points}`);
     }
     
     // update frontend
+    scoreList.innerHTML = "";
     for (let i=0; i<12; i++) {
-        // update position
         let balloon = balloonScoresSorted[i];
-        balloon.htmlElement.removeAttribute("id");
-        balloon.htmlElement.setAttribute("id", `balloon${i+1}`);
+        updateHtmlElement(balloon);
+        scoreList.appendChild(balloon.htmlElement)
+    } 
 
-        // update viewed score 
-        let scoreDiv = document.querySelector(`#score${balloon.id}`);
-        scoreDiv.innerHTML = balloon.points;
-
-        // updated highscore-records
-        daily_record = score_data[12];
-        season_record = score_data[13];
-        document.querySelector("#tagesrekord").innerHTML = daily_record;
-        document.querySelector("#jahresrekord").innerHTML = season_record;
-    }
+    // updated highscore-records
+    daily_record = score_data[12];
+    season_record = score_data[13];
+    document.querySelector("#tagesrekord").innerHTML = daily_record;
+    document.querySelector("#jahresrekord").innerHTML = season_record;
 };
 
 socket.onerror = error => {
@@ -75,19 +72,57 @@ socket.onclose = event => {
 };
 
 
+function updateHtmlElement(balloon) {
+    // Structure of an balloonHtmlElement:
+    //<div id="balloon1" class="balloon">
+    //    <div id="id1" class="id">01</div>
+    //    <div id="score1" class="score">001</div>
+    //</div>
+
+    balloon.htmlElement.innerHTML = "";
+    
+    let idDiv = document.createElement("div");
+    idDiv.id = `id${balloon.rank}`;
+    idDiv.classList.add("id");
+    idDiv.innerHTML = balloon.id;
+
+    let scoreDiv = document.createElement("div");
+    scoreDiv.id = `score${balloon.rank}`
+    scoreDiv.classList.add("score")
+    scoreDiv.innerHTML = balloon.points
+
+    balloon.htmlElement.appendChild(idDiv);
+    balloon.htmlElement.appendChild(scoreDiv);
+}
+
 
 // just for testing ranking mechanism
-// invert the ranking by clicking on 1st element
 /*
 let testElement = document.querySelector("#balloon1");
 testElement.addEventListener("click", () => {    
+    //create artificial random balloon Scores
     for (let i=0; i<12; i++) {
-        let balloonScore = scoreObjects[i];
-        balloonScore.htmlElement.removeAttribute("id");
-        balloonScore.htmlElement.setAttribute("id", `balloon${12-i}`);
-
-        let scoreDiv = document.querySelector(`#score${balloonScore.id}`);
-        scoreDiv.innerHTML = i+1;
+        balloonScores[i].points = Math.floor(Math.random() * 1000);
     }
+    
+    // sort and rank the objects
+    let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_b.points - score_a.points);
+    for (let i=0; i<12; i++) {
+        balloonScoresSorted[i].rank = i+1;
+    }
+
+    for (let i=0; i<12; i++) {
+        console.log(`ID: ${balloonScoresSorted[i].id}`);
+        console.log(`Rank: ${balloonScoresSorted[i].rank}`);
+        console.log(`Points: ${balloonScoresSorted[i].points}`);
+    }
+
+    // update frontend
+    scoreList.innerHTML = "";
+    for (let i=0; i<12; i++) {
+        let balloon = balloonScoresSorted[i];
+        updateHtmlElement(balloon);
+        scoreList.appendChild(balloon.htmlElement)
+    } 
 });
 */
