@@ -11,6 +11,9 @@ body {
     height: 100%;
     width: 100%;
     font-family: 'Hoss Round Medium', sans-serif;
+    background-color: black;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .background-container {
@@ -19,12 +22,13 @@ body {
     height: 100vh;
     width: 100vw;
     background-size: 100% 100%;
-
+    margin-top: 1.5vh;
+    margin-left: 2vw;
 }
 
 .balloon {
     display: flex;
-    font-size: 3vh;
+    font-size: 3.5vh;
 }
 
 .id {
@@ -36,7 +40,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .score {
@@ -45,13 +49,13 @@ body {
     justify-content: right;
     align-items: center;
     width: 15vw;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 #id1 {
     position: absolute;
     top: 21.0vh;
-    left: 32.8vw;
+    left: 32.9vw;
 }
 #score1 {
     position: absolute;
@@ -62,7 +66,7 @@ body {
 #id2 {
     position: absolute;
     top: 28.7vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score2 {
     position: absolute;
@@ -73,7 +77,7 @@ body {
 #id3 {
     position: absolute;
     top: 33.4vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score3 {
     position: absolute;
@@ -84,7 +88,7 @@ body {
 #id4 {
     position: absolute;
     top: 38.1vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score4 {
     position: absolute;
@@ -95,7 +99,7 @@ body {
 #id5 {
     position: absolute;
     top: 42.8vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score5 {
     position: absolute;
@@ -106,7 +110,7 @@ body {
 #id6 {
     position: absolute;
     top: 47.5vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score6 {
     position: absolute;
@@ -117,7 +121,7 @@ body {
 #id7 {
     position: absolute;
     top: 52.2vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score7 {
     position: absolute;
@@ -128,7 +132,7 @@ body {
 #id8 {
     position: absolute;
     top: 56.9vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score8 {
     position: absolute;
@@ -139,7 +143,7 @@ body {
 #id9 {
     position: absolute;
     top: 61.5vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score9 {
     position: absolute;
@@ -150,7 +154,7 @@ body {
 #id10 {
     position: absolute;
     top: 66.2vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score10 {
     position: absolute;
@@ -161,7 +165,7 @@ body {
 #id11 {
     position: absolute;
     top: 70.9vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score11 {
     position: absolute;
@@ -172,7 +176,7 @@ body {
 #id12 {
     position: absolute;
     top: 75.6vh;
-    left: 32.65vw;
+    left: 32.9vw;
 }
 #score12 {
     position: absolute;
@@ -190,7 +194,7 @@ body {
     position: absolute;
     top: 85vh;
     left: 69vw;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 #jahresrekord {
@@ -203,5 +207,5 @@ body {
     position: absolute;
     top: 89vh;
     left: 69vw;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
