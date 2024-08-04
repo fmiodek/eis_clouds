@@ -1,5 +1,5 @@
 HOST = "localhost";
-PORT = 8080;
+PORT = 2207;
 
 const scoreList = document.querySelector(".score-list");
 

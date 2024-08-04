@@ -4,7 +4,7 @@ import json
 from game_logic import balloons, daily_record, season_record
 
 HOST = "localhost"
-WEBSOCKET_PORT = 8080
+WEBSOCKET_PORT = 2207
 
 async def send_data(websocket):
     try:
