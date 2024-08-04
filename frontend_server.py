@@ -7,7 +7,7 @@ Frontend available on http://HOST:PORT/scores.html
 """
 
 FRONTEND_PORT = 2208
-FRONTEND_DIRECTORY = "./frontend"
+FRONTEND_DIRECTORY = "./eis_clouds/frontend"
 
 # server for displaying frontend page
 Handler = http.server.SimpleHTTPRequestHandler

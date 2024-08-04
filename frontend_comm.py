@@ -1,23 +1,80 @@
+
+
+"""
+async def send_data(websocket, path):
+    while True:
+        try:
+            data = game_logic.currentScores
+            await websocket.send(json.dumps(data))
+            await asyncio.sleep(0.5)  # 500ms interval (optional)
+        except Exception as e:
+            print("Error in sending data to frontend")
+            await websocket.close()
+
+start_server = websockets.serve(send_data, HOST, WEBSOCKET_PORT)
+loop = asyncio.get_event_loop()
+loop.run_until_complete(start_server)
+loop.run_forever()
+"""
+
+"""
 import websockets
 import asyncio
 import json
-from game_logic import balloons, daily_record, season_record
 
-HOST = "localhost"
+HOST = "192.168.76.152"
 WEBSOCKET_PORT = 2207
+currentScores = [0]*14
 
-async def send_data(websocket):
-    try:
-        while True:
-            data = [balloon.score for balloon in balloons]
-            data.append(daily_record)
-            data.append(season_record)
-            await websocket.send(json.dumps(data))
-            await asyncio.sleep(0.5)  # 500ms interval (optional)
-    except Exception as e:
-        print("Error in sending data to frontend")
-        await websocket.close()
+async def websocket_handler(websocket, path):
+    global currentScores
+    while True:
+        # Prepare the message (e.g., replace this with actual data retrieval)
+        message = currentScores
+        # Send the message
+        await websocket.send(json.dumps(message))
+        # Wait for the next interval
+        await asyncio.sleep(1)  # Send data every 5 seconds
+        print("sent")
 
-start_server = websockets.serve(send_data, HOST, WEBSOCKET_PORT)
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+async def main():
+    async with websockets.serve(websocket_handler, HOST, WEBSOCKET_PORT):
+        await asyncio.Future()  # Run forever
+
+if __name__ == "__main__":
+    asyncio.run(main())
+"""
+
+import websockets
+import asyncio
+import json
+import sys
+
+HOST = "192.168.76.152"
+WEBSOCKET_PORT = 2207
+currentScores = [0]*14
+
+async def websocket_handler(websocket, path):
+    global currentScores
+    while True:
+        try:
+            # Prepare the message (e.g., replace this with actual data retrieval)
+            message = currentScores
+            # Send the message
+            await websocket.send(json.dumps(message))
+            # Print confirmation and flush the output
+            print("sent")
+            sys.stdout.flush()
+            # Wait for the next interval
+            await asyncio.sleep(1)  # Send data every second
+        except Exception as e:
+            print(f"Error: {e}")
+            sys.stdout.flush()
+            break  # Exit the loop if there is an error
+
+async def main():
+    async with websockets.serve(websocket_handler, HOST, WEBSOCKET_PORT):
+        await asyncio.Future()  # Run forever
+
+if __name__ == "__main__":
+    asyncio.run(main())

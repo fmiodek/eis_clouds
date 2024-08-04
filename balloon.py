@@ -24,6 +24,7 @@ class Balloon:
 
     def count_points(self, hit_points: int):
         self.score += hit_points
+        print(self.balloon_id, self.score)
 
     def send_to_max(self, channel_id, sound_name):
         sound_id = -1

@@ -1,4 +1,4 @@
-HOST = "localhost";
+HOST = "192.168.76.152";
 PORT = 2207;
 
 const scoreList = document.querySelector(".score-list");
@@ -34,6 +34,7 @@ socket.onmessage = event => {
     console.log("\nNEW DATA")
     // get list of points for each balloon and assign it to corresponding Score Object
     let score_data = JSON.parse(event.data);
+    console.log(score_data);
     for (let i=0; i<12; i++) {
         balloonScores[i].points = score_data[i]
     }
@@ -94,7 +95,6 @@ function updateHtmlElement(balloon) {
     balloon.htmlElement.appendChild(idDiv);
     balloon.htmlElement.appendChild(scoreDiv);
 }
-
 
 // just for testing ranking mechanism
 /*

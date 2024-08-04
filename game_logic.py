@@ -1,6 +1,6 @@
 from balloon import Balloon
 from highscore import Highscore
-
+from frontend_comm import currentScores
 """
 receiving bits overview
 
@@ -54,6 +54,9 @@ god_mode = 2
 
 # instantiate the 12 balloons
 balloons = [Balloon(id+1) for id in range(AMOUNT_OF_BALLOONS)]
+#currentScores = [balloon.score for balloon in balloons]
+#currentScores.append(daily_record)
+#currentScores.append(season_record)
 
 # take the received bits and update the game-state accordingly
 def update_game(received: str):
@@ -62,8 +65,12 @@ def update_game(received: str):
     global sound_flag
     global god_mode
 
-    print(received)
-
+    global daily_record
+    global season_record
+    global balloons
+    global currentScores
+    
+    #print(received)
     # read bits
     start_flag_new = int(received[0])
     end_flag_new = int(received[1])
@@ -155,3 +162,10 @@ def update_game(received: str):
 
     start_flag = start_flag_new
     end_flag = end_flag_new
+    
+    currentScores[0:12] = [balloon.score for balloon in balloons]
+    currentScores[12] = daily_record
+    currentScores[13] = season_record
+    print(currentScores)
+
+
