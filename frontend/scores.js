@@ -22,55 +22,55 @@ for (let id=1; id<13; id++) {
     balloonScores.push(ballonScore);
 };
 
+document.addEventListener('DOMContentLoaded', () => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch('/score_data');
+            if (!response.ok) {
+                throw new Error('Netzwerkantwort war nicht ok');
+            }
+            const score_data = await response.json();
+            console.log(score_data)
+            
+            console.log("\nNEW DATA")
+            // get list of points for each balloon and assign it to corresponding Score Object
+            console.log(score_data);
+            for (let i=0; i<12; i++) {
+                balloonScores[i].points = score_data[i]
+            }
+            // sort and rank the objects
+            let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_b.points - score_a.points);
+            for (let i=0; i<12; i++) {
+                balloonScoresSorted[i].rank = i+1;
+            }
+            for (let i=0; i<12; i++) {
+                console.log(`ID: ${balloonScoresSorted[i].id}`);
+                console.log(`Rank: ${balloonScoresSorted[i].rank}`);
+                console.log(`Points: ${balloonScoresSorted[i].points}`);
+            }
+            
+            // update frontend
+            scoreList.innerHTML = "";
+            for (let i=0; i<12; i++) {
+                let balloon = balloonScoresSorted[i];
+                updateHtmlElement(balloon);
+                scoreList.appendChild(balloon.htmlElement)
+            } 
 
-// websocket to receive score data
-const socket = new WebSocket(`ws://${HOST}:${PORT}`);
+            // updated highscore-records
+            daily_record = score_data[12];
+            season_record = score_data[13];
+            document.querySelector("#tagesrekord").innerHTML = daily_record;
+            document.querySelector("#jahresrekord").innerHTML = season_record;
+        
+        } catch (error) {
+            console.error('Fehler beim Abrufen der Daten:', error);
+        }
+    };
 
-socket.onopen = () => {
-    console.log('WebSocket connection established.');
-};
-
-socket.onmessage = event => {
-    console.log("\nNEW DATA")
-    // get list of points for each balloon and assign it to corresponding Score Object
-    let score_data = JSON.parse(event.data);
-    console.log(score_data);
-    for (let i=0; i<12; i++) {
-        balloonScores[i].points = score_data[i]
-    }
-    // sort and rank the objects
-    let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_b.points - score_a.points);
-    for (let i=0; i<12; i++) {
-        balloonScoresSorted[i].rank = i+1;
-    }
-    for (let i=0; i<12; i++) {
-        console.log(`ID: ${balloonScoresSorted[i].id}`);
-        console.log(`Rank: ${balloonScoresSorted[i].rank}`);
-        console.log(`Points: ${balloonScoresSorted[i].points}`);
-    }
-    
-    // update frontend
-    scoreList.innerHTML = "";
-    for (let i=0; i<12; i++) {
-        let balloon = balloonScoresSorted[i];
-        updateHtmlElement(balloon);
-        scoreList.appendChild(balloon.htmlElement)
-    } 
-
-    // updated highscore-records
-    daily_record = score_data[12];
-    season_record = score_data[13];
-    document.querySelector("#tagesrekord").innerHTML = daily_record;
-    document.querySelector("#jahresrekord").innerHTML = season_record;
-};
-
-socket.onerror = error => {
-    console.error('WebSocket error:', error);
-};
-
-socket.onclose = event => {
-    console.log('WebSocket connection closed.');
-};
+    // Daten alle 2 Sekunden abrufen
+    setInterval(fetchData, 1000);
+});
 
 
 function updateHtmlElement(balloon) {

@@ -15,35 +15,7 @@ start_server = websockets.serve(send_data, HOST, WEBSOCKET_PORT)
 loop = asyncio.get_event_loop()
 loop.run_until_complete(start_server)
 loop.run_forever()
-"""
 
-"""
-import websockets
-import asyncio
-import json
-
-HOST = "192.168.76.152"
-WEBSOCKET_PORT = 2207
-currentScores = [0]*14
-
-async def websocket_handler(websocket, path):
-    global currentScores
-    while True:
-        # Prepare the message (e.g., replace this with actual data retrieval)
-        message = currentScores
-        # Send the message
-        await websocket.send(json.dumps(message))
-        # Wait for the next interval
-        await asyncio.sleep(1)  # Send data every 5 seconds
-        print("sent")
-
-async def main():
-    async with websockets.serve(websocket_handler, HOST, WEBSOCKET_PORT):
-        await asyncio.Future()  # Run forever
-
-if __name__ == "__main__":
-    asyncio.run(main())
-"""
 
 import websockets
 import asyncio
@@ -52,7 +24,7 @@ import sys
 
 HOST = "192.168.76.152"
 WEBSOCKET_PORT = 2207
-currentScores = [0]*14
+
 
 async def websocket_handler(websocket, path):
     global currentScores
@@ -78,3 +50,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+"""
