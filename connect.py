@@ -30,7 +30,7 @@ god_mode = 2
 
 # instantiate the 12 balloons
 balloons = [Balloon(id+1) for id in range(AMOUNT_OF_BALLOONS)]
-currentScores = [99]*14
+currentScores = [0]*14
 lock = threading.Lock()
 
 """TCP"""
@@ -89,6 +89,7 @@ def update_game(received: str):
 
     global daily_record
     global season_record
+    global overall_record
     global balloons
     
     #print(received)
@@ -128,18 +129,18 @@ def update_game(received: str):
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
-        """"
-        scores = [(balloon.balloon_id, balloon.score) for balloon in balloons]
+        
+        scores = [(currentScores[i], i) for i in range(1,13)]
+
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)
-        global daily_record
+        
         daily_record = int(daily_highscore.best[0])
-        global season_record
         season_record = int(season_highscore.best[0])
-        global overall_record
         overall_record = int(overall_highscore.best[0])
-        """
+        
+
         for balloon in balloons:
             balloon.send_to_max(balloon.balloon_id, "stop", client_udp)
             balloon.send_to_max(balloon.balloon_id, "loading", client_udp)
@@ -221,7 +222,7 @@ def game_loop():
                         received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
                         
                         # handle received data, send response, or trigger actions
-                        print("update", update_game(received))
+                        #print("update", update_game(received))
                         currentScores = update_game(received)
                         # --> send data to frontend
                         
@@ -260,9 +261,8 @@ def score_data():
     global currentScores
     with lock:
         scores_copy = currentScores.copy()  # Kopie der Liste erstellen
-    print("currentScores being sent:", scores_copy)
+    #print("currentScores being sent:", scores_copy)
     return jsonify(scores_copy)
-    #return jsonify(currentScores)
 
 def run_flask_app():
     app.run(host="192.168.76.152", port=2207, use_reloader=False)

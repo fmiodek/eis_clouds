@@ -8,7 +8,7 @@ class Highscore:
         self.got_new_score = False
 
     def read_table(self):
-        file_path = "highscores/" + self.time_span + ".txt"
+        file_path = "eis_clouds/highscores/" + self.time_span + ".txt"
         with open(file_path, "r") as current_highscore:
             score_data = current_highscore.readline()    
             score, date, balloon_id = score_data.strip("\n").split(", ")
@@ -16,13 +16,14 @@ class Highscore:
 
     def check_new_scores(self, new_scores):
         current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
-        for balloon_id, new_score in new_scores:
+        print("new_scores", new_scores)
+        for new_score, balloon_id in new_scores:
             if new_score > self.best[0]:
                 self.got_new_score = True
                 self.best = (int(new_score), current_date, int(balloon_id))
 
     def write_table(self):
-        file_path = "highscores/" + self.time_span + ".txt"
+        file_path = "eis_clouds/highscores/" + self.time_span + ".txt"
         with open(file_path, "w") as new_highscore:
             new_entry = str(self.best[0]) + ", " + self.best[1] + ", " + str(self.best[2]) + "\n"
             new_highscore.write(new_entry)
