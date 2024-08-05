@@ -1,8 +1,6 @@
 import socket
 import time
 import random
-from pythonosc import dispatcher
-from pythonosc import osc_server
 
 from flask import Flask, jsonify, render_template
 import threading
@@ -37,15 +35,6 @@ lock = threading.Lock()
 IP = "192.168.76.150"
 PORT = 50001
 
-"""UDP"""
-from pythonosc import udp_client
-
-udp_ip = "127.0.0.1"
-udp_port = 16575
-
-# Create a client object
-client_udp = udp_client.SimpleUDPClient(udp_ip, udp_port)
-print("udp client 1 ready")
 
 """
 receiving bits overview
@@ -101,7 +90,7 @@ def update_game(received: str):
     
     god_mode_new = int(received[27])
     if god_mode_new == 1 and god_mode_new != god_mode:
-        balloons[0].send_to_max(99, "god_mode", client_udp)
+        balloons[0].send_to_max(99, "god_mode")
         god_mode = god_mode_new
     elif god_mode_new == 0 and god_mode_new != god_mode:
         god_mode = god_mode_new
@@ -110,10 +99,10 @@ def update_game(received: str):
     # read sound_flag bit and handle mute
     sound_flag_new = int(received[26])
     if sound_flag_new == 0 and sound_flag_new != sound_flag:
-        balloons[0].send_to_max(0, "mute", client_udp)
+        balloons[0].send_to_max(0, "mute")
         sound_flag = sound_flag_new
     elif sound_flag_new == 1 and sound_flag_new != sound_flag:
-        balloons[0].send_to_max(0, "unmute", client_udp)
+        balloons[0].send_to_max(0, "unmute")
         sound_flag = sound_flag_new    
     
     # update game based on received bits
@@ -123,8 +112,8 @@ def update_game(received: str):
             balloon.reset_balloon()
             
         for balloon in balloons:
-            balloon.send_to_max(balloon.balloon_id, "stop", client_udp)
-            balloon.send_to_max(balloon.balloon_id, "background", client_udp)
+            balloon.send_to_max(balloon.balloon_id, "stop")
+            balloon.send_to_max(balloon.balloon_id, "background")
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
@@ -141,8 +130,8 @@ def update_game(received: str):
         overall_record = int(overall_highscore.best[0])
         """
         for balloon in balloons:
-            balloon.send_to_max(balloon.balloon_id, "stop", client_udp)
-            balloon.send_to_max(balloon.balloon_id, "loading", client_udp)
+            balloon.send_to_max(balloon.balloon_id, "stop")
+            balloon.send_to_max(balloon.balloon_id, "loading")
 
     elif start_flag_new == 1 and end_flag_new == 0:
         # read hit/collect-bits for all balloons
@@ -158,7 +147,7 @@ def update_game(received: str):
                 # cloud was hit
                 current_balloon.hit = 1
                 current_balloon.count_points(HIT_POINTS)
-                current_balloon.send_to_max(current_balloon.balloon_id, "hit", client_udp)
+                current_balloon.send_to_max(current_balloon.balloon_id, "hit")
             elif current_balloon.hit == 1 and hit == 0:
                 # back to default
                 current_balloon.hit = 0
@@ -173,7 +162,7 @@ def update_game(received: str):
                 # clouds were colelcted / sucked in
                 current_balloon.collect = 1
                 # play collect sound
-                current_balloon.send_to_max(current_balloon.balloon_id, "collect", client_udp)
+                current_balloon.send_to_max(current_balloon.balloon_id, "collect")
             elif current_balloon.collect == 1 and collect == 0:
                 # return to default
                 current_balloon.collect = 0
@@ -190,21 +179,22 @@ def update_game(received: str):
     currScores[13] = season_record
     return currScores
 
+
+
 def game_loop():
     global currentScores
     while True:
-        """
+            
         i = 0
         while True:
             if i % 1000 == 0: 
                 currentScores = [int(random.random()*100) for i in range(14)]
                 i = 0
-                #client_udp.send_message("/points", currentScores)
         """
         try:    
+            
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 sock.connect((IP, PORT))
-                print("new connected")
                 # ready-message for the server
                 ready = bytes([1]) #"Ready" in communication protocol
                 sock.sendall(ready)
@@ -221,12 +211,12 @@ def game_loop():
                         received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
                         
                         # handle received data, send response, or trigger actions
-                        print("update", update_game(received))
                         currentScores = update_game(received)
+                        print("currentScores:", currentScores)
+                        
                         # --> send data to frontend
                         
-                    else:
-                        print("else") 
+                    else: 
                         break
 
         except Exception as e:
@@ -239,11 +229,76 @@ def game_loop():
             sock.close()
             break
             
-        finally:
-            print("finally")
-                
-                
+        """
 
+"""
+def game_loop():
+    global currentScores
+
+    # while loop for automatic reconnecting to SPS if connection is lost
+    while True:
+        # create tcp socket
+        
+        # just for simple test
+        
+        #while True:
+        #    i = 0
+        #    if i % 1000 == 0: 
+        #        currentScores = [int(random.random()*100) for i in range(14)]
+        #        i = 0
+        
+        
+        client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
+        # connect to server
+        try:
+            print("try connecting")
+            client_sock.connect((IP, PORT))
+            print(f"connected to server on {IP}:{PORT}")
+
+            # ready-message for the server
+            ready = bytes([1]) #"Ready" in communication protocol
+            client_sock.sendall(ready)
+
+            # receive data
+            while True:
+                incoming_data = client_sock.recv(4)
+                if incoming_data:
+                    # convert byte to bit-stream
+                    received1 = ''.join(format(incoming_data[0], '08b'))
+                    received2= ''.join(format(incoming_data[1], '08b'))
+                    received3= ''.join(format(incoming_data[2], '08b'))
+                    received4= ''.join(format(incoming_data[3], '08b'))
+                    # reverse bytes and concat afterwards
+                    received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
+                    
+                    # handle received data, send response, or trigger actions
+                    print("vorher:", currentScores)
+                    with lock:
+                        currentScores = update_game(received)
+                    print("nachher:", currentScores)
+                    
+                else: 
+                    break
+                
+        except Exception as e:
+            print("Error:", e)
+            print("try reconnecting (from error)")
+            client_sock.close()
+            time.sleep(1)
+
+        except KeyboardInterrupt:
+            client_sock.close()
+            break
+            
+        
+        finally:
+            print("try reconnecting (from finally)")
+            client_sock.close()
+            time.sleep(1)
+        
+"""
+            
 
 """Frontend App"""
 HOST = "192.168.76.152"
@@ -260,18 +315,15 @@ def score_data():
     global currentScores
     with lock:
         scores_copy = currentScores.copy()  # Kopie der Liste erstellen
-    print("currentScores being sent:", scores_copy)
+    print("currentScores being sent:", scores_copy)  # Zum Debuggen
     return jsonify(scores_copy)
     #return jsonify(currentScores)
 
-def run_flask_app():
-    app.run(host="192.168.76.152", port=2207, use_reloader=False)
-
 
 if __name__ == '__main__':
-
     
-    flask_thread = threading.Thread(target=run_flask_app)
-    flask_thread.start()
-    game_loop()
+    game_thread = threading.Thread(target=game_loop)
+    game_thread.daemon = True
+    game_thread.start()
 
+    app.run(host=HOST, port=APP_PORT, debug=True)

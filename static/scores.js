@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error('Netzwerkantwort war nicht ok');
             }
-            const score_data = await response.json();
+            let score_data = await response.json();
             
             console.log("\nNEW DATA")
             // get list of points for each balloon and assign it to corresponding Score Object

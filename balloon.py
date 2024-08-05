@@ -1,14 +1,3 @@
-"""UDP"""
-from pythonosc import udp_client
-
-udp_ip = "127.0.0.1"
-udp_port = 16575
-
-# Create a client object
-client = udp_client.SimpleUDPClient(udp_ip, udp_port)
-print("udp client ready")
-
-
 class Balloon:
     def __init__(self, balloon_id: int):
         self.balloon_id = balloon_id
@@ -26,7 +15,7 @@ class Balloon:
         self.score += hit_points
         print(self.balloon_id, self.score)
 
-    def send_to_max(self, channel_id, sound_name):
+    def send_to_max(self, channel_id, sound_name, udp_client):
         sound_id = -1
         if sound_name == "background":
             sound_id = 1
@@ -48,5 +37,5 @@ class Balloon:
 
         data_to_send = [channel_id, sound_id]
         print(data_to_send)
-        client.send_message("/sound", data_to_send)
+        udp_client.send_message("/sound", data_to_send)
 

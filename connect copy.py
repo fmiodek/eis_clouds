@@ -47,6 +47,8 @@ udp_port = 16575
 client_udp = udp_client.SimpleUDPClient(udp_ip, udp_port)
 print("udp client 1 ready")
 
+udp_port2 = 16577
+
 """
 receiving bits overview
 
@@ -190,10 +192,12 @@ def update_game(received: str):
     currScores[13] = season_record
     return currScores
 
+
+
 def game_loop():
     global currentScores
     while True:
-        """
+        
         i = 0
         while True:
             if i % 1000 == 0: 
@@ -202,9 +206,9 @@ def game_loop():
                 #client_udp.send_message("/points", currentScores)
         """
         try:    
+            
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 sock.connect((IP, PORT))
-                print("new connected")
                 # ready-message for the server
                 ready = bytes([1]) #"Ready" in communication protocol
                 sock.sendall(ready)
@@ -221,12 +225,12 @@ def game_loop():
                         received = received1[::-1] + received2[::-1] + received3[::-1] + received4[::-1]
                         
                         # handle received data, send response, or trigger actions
-                        print("update", update_game(received))
                         currentScores = update_game(received)
+                        print("currentScores:", currentScores)
+                        
                         # --> send data to frontend
                         
-                    else:
-                        print("else") 
+                    else: 
                         break
 
         except Exception as e:
@@ -239,10 +243,21 @@ def game_loop():
             sock.close()
             break
             
-        finally:
-            print("finally")
-                
-                
+        """
+
+def message_handler(address, *args):
+    print(f"Received message on {address} with arguments {args}")
+
+def start_udp_server():
+    # Erstelle einen Dispatcher und registriere den Handler für einen bestimmten OSC-Pfad
+    disp = dispatcher.Dispatcher()
+    disp.map("/", message_handler)
+
+    # Erstelle den Server und gebe den Dispatcher und die Portnummer an
+    server = osc_server.ThreadingOSCUDPServer(("localhost", udp_port2), disp)
+
+    print("Server is listening...")
+    server.serve_forever()
 
 
 """Frontend App"""
@@ -260,18 +275,18 @@ def score_data():
     global currentScores
     with lock:
         scores_copy = currentScores.copy()  # Kopie der Liste erstellen
-    print("currentScores being sent:", scores_copy)
+    print("currentScores being sent:", scores_copy)  # Zum Debuggen
     return jsonify(scores_copy)
     #return jsonify(currentScores)
 
-def run_flask_app():
-    app.run(host="192.168.76.152", port=2207, use_reloader=False)
-
 
 if __name__ == '__main__':
-
     
-    flask_thread = threading.Thread(target=run_flask_app)
-    flask_thread.start()
-    game_loop()
+    game_thread = threading.Thread(target=game_loop)
+    game_thread.daemon = True
+    game_thread.start()
 
+    server_thread = threading.Thread(target=start_udp_server)
+    server_thread.start()
+
+    app.run(host=HOST, port=APP_PORT, debug=True)
