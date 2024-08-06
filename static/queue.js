@@ -128,8 +128,10 @@ function updateHtmlElement(balloon) {
 
 
 function updateWinnerElement(balloon) {
-    let winnerElement = document.querySelector("#balloon0");
-    winnerElement.innerHTML = ""
+    
+    let winnerElement = document.createElement("div")
+    winnerElement.id = "balloon0";
+    winnerElement.classList.add("balloon");
     
     let idDiv = document.createElement("div");
     idDiv.id = `id0`;
