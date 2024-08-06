@@ -254,6 +254,10 @@ app = Flask(__name__)
 def scores():
     return render_template('scores.html')
 
+@app.route('/scores_wide')
+def scores_wide():
+    return render_template('scores_wide.html')
+
 @app.route('/queue')
 def queue():
     return render_template('queue.html')

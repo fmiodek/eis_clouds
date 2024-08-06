@@ -1,0 +1,225 @@
+@font-face {
+    font-family: 'Hoss Round Medium';
+    src: url('fonts/fonnts.com-Hoss_Round_Medium.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Hoss Round Medium', sans-serif;
+    background-color: black;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.background-container {
+    position: relative;
+    background-image: url("images/Wolkenfaenger_Screen_quer.jpg");
+    height: 100vh;
+    width: 100vw;
+    background-size: 100% 100%;
+}
+
+.balloon {
+    display: flex;
+    font-size: 5.3vh;
+}
+
+.id {
+    margin-right: 10vw;
+    color: rgb(3, 138, 145);
+    width: 4vw;
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    /*border: 1px solid black;*/
+}
+
+.score {
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 6vw;
+    height: 7vh;
+    /*border: 1px solid black;*/
+}
+
+#id0 {
+    position: absolute;
+    top: 33.9vh;
+    left: 17.9vw;
+}
+#score0 {
+    position: absolute;
+    top: 33.9vh;
+    left: 30vw;
+}
+
+#id1 {
+    position: absolute;
+    top: 52.1vh;
+    left: 17.8vw;
+}
+#score1 {
+    position: absolute;
+    top: 52.1vh;
+    left: 30vw;
+}
+
+#id2 {
+    position: absolute;
+    top: 60.6vh;
+    left: 17.8vw;
+}
+#score2 {
+    position: absolute;
+    top: 60.6vh;
+    left: 30vw;
+}
+
+#id3 {
+    position: absolute;
+    top: 68.9vh;
+    left: 17.8vw;
+}
+#score3 {
+    position: absolute;
+    top: 68.9vh;
+    left: 30vw;
+}
+
+#id4 {
+    position: absolute;
+    top: 77.3vh;
+    left: 17.8vw;
+}
+#score4 {
+    position: absolute;
+    top: 77.3vh;
+    left: 30vw;
+}
+
+#id5 {
+    position: absolute;
+    top: 52.2vh;
+    left: 41.9vw;
+}
+#score5 {
+    position: absolute;
+    top: 52.2vh;
+    left: 54vw;
+}
+
+#id6 {
+    position: absolute;
+    top: 60.6vh;
+    left: 41.9vw;
+}
+#score6 {
+    position: absolute;
+    top: 60.6vh;
+    left: 54vw;
+}
+
+#id7 {
+    position: absolute;
+    top: 69vh;
+    left: 41.9vw;
+}
+#score7 {
+    position: absolute;
+    top: 69vh;
+    left: 54vw;
+}
+
+#id8 {
+    position: absolute;
+    top: 77.2vh;
+    left: 41.9vw;
+}
+#score8 {
+    position: absolute;
+    top: 77.2vh;
+    left: 54vw;
+}
+
+#id9 {
+    position: absolute;
+    top: 52.2vh;
+    left: 65.9vw;
+}
+#score9 {
+    position: absolute;
+    top: 52.2vh;
+    left: 78vw;
+}
+
+#id10 {
+    position: absolute;
+    top: 60.6vh;
+    left: 65.8vw;
+}
+#score10 {
+    position: absolute;
+    top: 60.6vh;
+    left: 78vw;
+}
+
+#id11 {
+    position: absolute;
+    top: 69vh;
+    left: 65.8vw;
+}
+#score11 {
+    position: absolute;
+    top: 69vh;
+    left: 78vw;
+}
+
+#id12 {
+    position: absolute;
+    top: 77.2vh;
+    left: 65.7vw;
+}
+#score12 {
+    position: absolute;
+    top: 77.2vh;
+    left: 78vw;
+}
+
+#tagesrekord {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 6vw;
+    height: 7vh;
+    font-size: 5.5vh;
+    color: white;
+    position: absolute;
+    top: 22.8vh;
+    left: 75vw;
+    /*border: 1px solid black;*/
+}
+
+#jahresrekord {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 6vw;
+    height: 7vh;
+    font-size: 5.5vh;
+    color: white;
+    position: absolute;
+    top: 30.2vh;
+    left: 75vw;
+    /*border: 1px solid black;*/
+}

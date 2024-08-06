@@ -1,9 +1,6 @@
 const body = document.querySelector("body");
 const testVideo = document.querySelector("#test-video");
 const scoreContainer = document.querySelector(".background-container");
-let showVideo = false;
-testVideo.style.display = "none";
-let startTime = new Date();
 
 HOST = "192.168.76.152";
 PORT = 2207;
@@ -32,25 +29,6 @@ for (let id=1; id<13; id++) {
 document.addEventListener('DOMContentLoaded', () => {
     const fetchData = async () => {
         try {
-            // check time difference for switch between video and score
-            let now = new Date();
-            let timeDiff = (now - startTime) / 1000;
-            if (timeDiff > 30) {
-                showVideo = !showVideo;
-                startTime = now;
-            };
-
-            if (!showVideo) {
-                testVideo.pause(); 
-                testVideo.currentTime = 0;
-                testVideo.style.display = "none";
-                scoreContainer.style.display = "block";
-            } else {
-                scoreContainer.style.display = "none";
-                testVideo.style.display = "block";
-                testVideo.play();
-            }
-            
             const response = await fetch('/score_data');
             if (!response.ok) {
                 throw new Error('Netzwerkantwort war nicht ok');
