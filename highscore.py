@@ -8,7 +8,8 @@ class Highscore:
         self.got_new_score = False
 
     def read_table(self):
-        file_path = "eis_clouds/highscores/" + self.time_span + ".txt"
+        file_path = "/Users/aufwind/eis_clouds/highscores/" + self.time_span + ".txt"
+        #file_path = "eis_clouds/highscores/" + self.time_span + ".txt"
         with open(file_path, "r") as current_highscore:
             score_data = current_highscore.readline()    
             score, date, balloon_id = score_data.strip("\n").split(", ")
@@ -23,7 +24,8 @@ class Highscore:
                 self.best = (int(new_score), current_date, int(balloon_id))
 
     def write_table(self):
-        file_path = "eis_clouds/highscores/" + self.time_span + ".txt"
+        file_path = "/Users/aufwind/eis_clouds/highscores/" + self.time_span + ".txt"
+        #file_path = "eis_clouds/highscores/" + self.time_span + ".txt"
         with open(file_path, "w") as new_highscore:
             new_entry = str(self.best[0]) + ", " + self.best[1] + ", " + str(self.best[2]) + "\n"
             new_highscore.write(new_entry)

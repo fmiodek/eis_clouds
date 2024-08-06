@@ -25,16 +25,20 @@ currentScores = [0]*14
 lock = threading.Lock()
 
 # highscores
+
 daily_highscore = Highscore("day")
 season_highscore = Highscore("season")
 overall_highscore = Highscore("overall")
-scores = [(currentScores[i], i) for i in range(1,13)]
-daily_highscore.update_table(scores)
-season_highscore.update_table(scores)
-overall_highscore.update_table(scores)
-daily_record = int(daily_highscore.best[0])
-season_record = int(season_highscore.best[0])
-overall_record = int(overall_highscore.best[0])
+daily_record = 0
+season_record = 0
+overall_record = 0
+#scores = [(currentScores[i], i) for i in range(1,13)]
+#daily_highscore.update_table(scores)
+#season_highscore.update_table(scores)
+#overall_highscore.update_table(scores)
+#daily_record = int(daily_highscore.best[0])
+#season_record = int(season_highscore.best[0])
+#overall_record = int(overall_highscore.best[0])
 
 
 """TCP"""
