@@ -120,6 +120,31 @@ function updateHtmlElement(balloon) {
 
     balloon.htmlElement.appendChild(idDiv);
     balloon.htmlElement.appendChild(scoreDiv);
+
+    if (balloon.rank == 1) {
+        updateWinnerElement(balloon);
+    };
+}
+
+
+function updateWinnerElement(balloon) {
+    let winnerElement = document.querySelector("#balloon0");
+    winnerElement.innerHTML = ""
+    
+    let idDiv = document.createElement("div");
+    idDiv.id = `id0`;
+    idDiv.classList.add("id");
+    idDiv.innerHTML = balloon.id;
+
+    let scoreDiv = document.createElement("div");
+    scoreDiv.id = `score0`
+    scoreDiv.classList.add("score")
+    scoreDiv.innerHTML = balloon.points
+
+    winnerElement.appendChild(idDiv);
+    winnerElement.appendChild(scoreDiv);
+
+    scoreList.appendChild(winnerElement);
 }
 
 // just for testing ranking mechanism
