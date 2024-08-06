@@ -32,13 +32,13 @@ overall_highscore = Highscore("overall")
 daily_record = 0
 season_record = 0
 overall_record = 0
-#scores = [(currentScores[i], i) for i in range(1,13)]
-#daily_highscore.update_table(scores)
-#season_highscore.update_table(scores)
-#overall_highscore.update_table(scores)
-#daily_record = int(daily_highscore.best[0])
-#season_record = int(season_highscore.best[0])
-#overall_record = int(overall_highscore.best[0])
+scores = [(currentScores[i], i+1) for i in range(12)]
+daily_highscore.update_table(scores)
+season_highscore.update_table(scores)
+overall_highscore.update_table(scores)
+daily_record = int(daily_highscore.best[0])
+season_record = int(season_highscore.best[0])
+overall_record = int(overall_highscore.best[0])
 
 
 """TCP"""
@@ -133,7 +133,7 @@ def update_game(received: str):
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
-        scores = [(currentScores[i], i) for i in range(1,13)]
+        scores = [(currentScores[i], i+1) for i in range(12)]
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)

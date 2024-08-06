@@ -17,7 +17,6 @@ class Highscore:
 
     def check_new_scores(self, new_scores):
         current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
-        print("new_scores", new_scores)
         for new_score, balloon_id in new_scores:
             if new_score > self.best[0]:
                 self.got_new_score = True
@@ -40,7 +39,7 @@ class Highscore:
         current_date = datetime.datetime.now().date().strftime("%d.%m.%y")
         # reset daily table if it´s a new day
         if self.time_span == "day":
-            # reset if date of first entry is not equal to current date
+            # reset if date is not equal to current date
             if self.best[1] != current_date:
                 self.reset_table()
         # reset season table if its a new year
