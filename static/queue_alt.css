@@ -10,12 +10,10 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
+    background-color: black;;
     display: flex;
     justify-content: center;
     font-family: 'Hoss Round Medium', sans-serif;
-    background-color: black;
-    overflow-y: hidden;
-    overflow-x: hidden;
 }
 
 .background-container {
@@ -28,7 +26,7 @@ body {
 
 .balloon {
     display: flex;
-    font-size: 3.5vh;
+    font-size: 3vh;
 }
 
 .id {
@@ -40,7 +38,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
 }
 
 .score {
@@ -49,7 +47,7 @@ body {
     justify-content: right;
     align-items: center;
     width: 5vw;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
 }
 
 #id1 {
@@ -194,7 +192,7 @@ body {
     position: absolute;
     top: 85vh;
     left: 22vw;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
 }
 
 #jahresrekord {
@@ -207,5 +205,5 @@ body {
     position: absolute;
     top: 89vh;
     left: 22vw;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
 }
