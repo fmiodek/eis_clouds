@@ -1,8 +1,7 @@
 import socket
+from pythonosc import udp_client
 import time
 import random
-from pythonosc import dispatcher
-from pythonosc import osc_server
 
 from flask import Flask, jsonify, render_template
 import threading
@@ -38,14 +37,12 @@ IP = "192.168.76.150"
 PORT = 50001
 
 """UDP"""
-from pythonosc import udp_client
-
 udp_ip = "127.0.0.1"
 udp_port = 16575
 
 # Create a client object
 client_udp = udp_client.SimpleUDPClient(udp_ip, udp_port)
-print("udp client 1 ready")
+print("udp client ready")
 
 """
 receiving bits overview
@@ -99,7 +96,6 @@ def update_game(received: str):
     hit_collect_data = received[2:]
 
     # check for god_mode
-    
     god_mode_new = int(received[27])
     if god_mode_new == 1 and god_mode_new != god_mode:
         balloons[0].send_to_max(99, "god_mode", client_udp)
@@ -107,7 +103,6 @@ def update_game(received: str):
     elif god_mode_new == 0 and god_mode_new != god_mode:
         god_mode = god_mode_new
     
-        
     # read sound_flag bit and handle mute
     sound_flag_new = int(received[26])
     if sound_flag_new == 0 and sound_flag_new != sound_flag:
@@ -129,18 +124,14 @@ def update_game(received: str):
 
     elif end_flag_new == 1 and end_flag_new != end_flag:
         # update highscores
-        
         scores = [(currentScores[i], i) for i in range(1,13)]
-
         daily_highscore.update_table(scores)
         season_highscore.update_table(scores)
         overall_highscore.update_table(scores)
-        
         daily_record = int(daily_highscore.best[0])
         season_record = int(season_highscore.best[0])
         overall_record = int(overall_highscore.best[0])
         
-
         for balloon in balloons:
             balloon.send_to_max(balloon.balloon_id, "stop", client_udp)
             balloon.send_to_max(balloon.balloon_id, "loading", client_udp)
@@ -243,8 +234,6 @@ def game_loop():
         finally:
             print("finally")
                 
-                
-
 
 """Frontend App"""
 HOST = "192.168.76.152"
@@ -269,7 +258,6 @@ def run_flask_app():
 
 
 if __name__ == '__main__':
-
     
     flask_thread = threading.Thread(target=run_flask_app)
     flask_thread.start()
