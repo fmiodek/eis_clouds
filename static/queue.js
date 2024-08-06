@@ -1,5 +1,4 @@
 const body = document.querySelector("body");
-
 const testVideo = document.querySelector("#test-video");
 const scoreContainer = document.querySelector(".background-container");
 const switchButton = document.querySelector("#switch");
@@ -7,8 +6,7 @@ let showVideo = false;
 testVideo.style.display = "none";
 let startTime = new Date();
 
-
-HOST = "localhost";
+HOST = "192.168.76.152";
 PORT = 2207;
 
 const scoreList = document.querySelector(".score-list");
@@ -32,74 +30,74 @@ for (let id=1; id<13; id++) {
     balloonScores.push(ballonScore);
 };
 
-/*
-// websocket to receive score data
-const socket = new WebSocket(`ws://${HOST}:${PORT}`);
+document.addEventListener('DOMContentLoaded', () => {
+    const fetchData = async () => {
+        try {
+            // check time difference for switch between video and score
+            let now = new Date();
+            let timeDiff = (now - startTime) / 1000;
+            if (timeDiff > 30) {
+                showVideo = !showVideo;
+                startTime = now;
+            };
 
-socket.onopen = () => {
-    console.log('WebSocket connection established.');
-};
+            if (!showVideo) {
+                testVideo.pause(); 
+                testVideo.currentTime = 0;
+                testVideo.style.display = "none";
+                scoreContainer.style.display = "block";
+            } else {
+                scoreContainer.style.display = "none";
+                testVideo.style.display = "block";
+                testVideo.play();
+            }
+            
+            const response = await fetch('/score_data');
+            if (!response.ok) {
+                throw new Error('Netzwerkantwort war nicht ok');
+            }
+            let score_data = await response.json();
+            
+            console.log("\nNEW DATA")
+            // get list of points for each balloon and assign it to corresponding Score Object
+            console.log(score_data);
+            for (let i=0; i<12; i++) {
+                balloonScores[i].points = score_data[i]
+            }
+            // sort and rank the objects
+            let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_b.points - score_a.points);
+            for (let i=0; i<12; i++) {
+                balloonScoresSorted[i].rank = i+1;
+            }
+            for (let i=0; i<12; i++) {
+                console.log(`ID: ${balloonScoresSorted[i].id}`);
+                console.log(`Rank: ${balloonScoresSorted[i].rank}`);
+                console.log(`Points: ${balloonScoresSorted[i].points}`);
+            }
+            
+            // update frontend
+            scoreList.innerHTML = "";
+            for (let i=0; i<12; i++) {
+                let balloon = balloonScoresSorted[i];
+                updateHtmlElement(balloon);
+                scoreList.appendChild(balloon.htmlElement)
+            } 
 
-socket.onmessage = event => {
-    // check time difference for switch between video and score
-    let now = new Date();
-    let timeDiff = (now - startTime) / 1000;
-    if (timeDiff > 30) {
-        showVideo = !showVideo;
-        startTime = now;
+            // updated highscore-records
+            daily_record = score_data[12];
+            season_record = score_data[13];
+            document.querySelector("#tagesrekord").innerHTML = daily_record;
+            document.querySelector("#jahresrekord").innerHTML = season_record;
+        
+        } catch (error) {
+            console.error('Fehler beim Abrufen der Daten:', error);
+        }
     };
 
-    if (!showVideo) {
-        testVideo.pause(); 
-        testVideo.currentTime = 0;
-        testVideo.style.display = "none";
-        scoreContainer.style.display = "block";
-    } else {
-        scoreContainer.style.display = "none";
-        testVideo.style.display = "block";
-        testVideo.play();
-    }
-    
-    console.log("\nNEW DATA")
-    // get list of points for each balloon and assign it to corresponding Score Object
-    let score_data = JSON.parse(event.data);
-    for (let i=0; i<12; i++) {
-        balloonScores[i].points = score_data[i]
-    }
-    // sort and rank the objects
-    let balloonScoresSorted = balloonScores.slice().sort((score_a, score_b) => score_b.points - score_a.points);
-    for (let i=0; i<12; i++) {
-        balloonScoresSorted[i].rank = i+1;
-    }
-    for (let i=0; i<12; i++) {
-        console.log(`ID: ${balloonScoresSorted[i].id}`);
-        console.log(`Rank: ${balloonScoresSorted[i].rank}`);
-        console.log(`Points: ${balloonScoresSorted[i].points}`);
-    }
-    
-    // update frontend
-    scoreList.innerHTML = "";
-    for (let i=0; i<12; i++) {
-        let balloon = balloonScoresSorted[i];
-        updateHtmlElement(balloon);
-        scoreList.appendChild(balloon.htmlElement)
-    } 
+    // Daten alle 2 Sekunden abrufen
+    setInterval(fetchData, 1000);
+});
 
-    // updated highscore-records
-    daily_record = score_data[12];
-    season_record = score_data[13];
-    document.querySelector("#tagesrekord").innerHTML = daily_record;
-    document.querySelector("#jahresrekord").innerHTML = season_record;
-};
-
-socket.onerror = error => {
-    console.error('WebSocket error:', error);
-};
-
-socket.onclose = event => {
-    console.log('WebSocket connection closed.');
-};
-*/
 
 function updateHtmlElement(balloon) {
     // Structure of an balloonHtmlElement:
@@ -124,29 +122,10 @@ function updateHtmlElement(balloon) {
     balloon.htmlElement.appendChild(scoreDiv);
 }
 
-
 // just for testing ranking mechanism
-
-body.addEventListener("click", () => {    
-    // check time difference for switch between video and score
-    let now = new Date();
-    let timeDiff = (now - startTime) / 1000;
-    if (timeDiff > 30) {
-        showVideo = !showVideo;
-        startTime = now;
-    };
-
-    if (!showVideo) {
-        testVideo.pause(); 
-        testVideo.currentTime = 0;
-        testVideo.style.display = "none";
-        scoreContainer.style.display = "block";
-    } else {
-        scoreContainer.style.display = "none";
-        testVideo.style.display = "block";
-        testVideo.play();
-    }
-    
+/*
+let testElement = document.querySelector("#balloon1");
+testElement.addEventListener("click", () => {    
     //create artificial random balloon Scores
     for (let i=0; i<12; i++) {
         balloonScores[i].points = Math.floor(Math.random() * 1000);
@@ -172,5 +151,4 @@ body.addEventListener("click", () => {
         scoreList.appendChild(balloon.htmlElement)
     } 
 });
-
-
+*/

@@ -245,6 +245,10 @@ app = Flask(__name__)
 def scores():
     return render_template('scores.html')
 
+@app.route('/queue')
+def queue():
+    return render_template('queue.html')
+
 @app.route('/score_data')
 def score_data():
     global currentScores
@@ -258,7 +262,7 @@ def run_flask_app():
 
 
 if __name__ == '__main__':
-    
+
     flask_thread = threading.Thread(target=run_flask_app)
     flask_thread.start()
     game_loop()
